@@ -1,6 +1,6 @@
 ---
 title: "Version Badge Example"
-version-badge: v1.4-pre
+version-badge: 1.4-pre
 ---
 
 ## {{< v 1.0 >}} A feature here from ages ago{{< v 1.0 style="vertical-align: top !important;font-size: .40em !important;">}}
