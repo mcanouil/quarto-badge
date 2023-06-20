@@ -1,6 +1,6 @@
 .badge-release, .badge-prerelease {
-  /* vertical-align: top !important;
-  font-size: .40em !important; */
+  vertical-align: text-bottom !important;
+  font-size: .65em !important;
 }
 
 .nav-link .badge-release, .nav-link .badge-prerelease {
