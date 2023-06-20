@@ -1,0 +1,19 @@
+---
+title: "Version Badge Example"
+version-badge: v1.4-pre
+---
+
+## {{< v 1.0 >}} A feature here from ages ago{{< v 1.0 style="vertical-align: top !important;font-size: .40em !important;">}}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl
+eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nunc nisl eu
+
+## {{< v 1.1 >}} A feature here from a while ago{{< v 1.1 style="vertical-align: top !important;font-size: .40em !important;">}}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl
+eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nunc nisl eu
+
+## {{< v 1.4-pre >}} A feature not quite here yet{{< v 1.4-pre style="vertical-align: top !important;font-size: .40em !important;">}}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl
+eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nunc nisl eu
