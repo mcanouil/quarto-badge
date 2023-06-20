@@ -2,3 +2,7 @@
   /* vertical-align: top !important;
   font-size: .40em !important; */
 }
+
+.nav-link .badge-release, .nav-link .badge-prerelease {
+  display: none;
+}
