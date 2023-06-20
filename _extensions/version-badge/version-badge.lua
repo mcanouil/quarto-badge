@@ -30,27 +30,30 @@ return {
         version = '1.0.0',
         stylesheets = {"version-badge.css"}
       })
+
       local version_text = pandoc.utils.stringify(args[1])
-      local version_badge_content = pandoc.utils.stringify(meta["version-badge"])
-      if version_badge_content then
+      if meta["version-badge"] then
+        version_badge_content = pandoc.utils.stringify(meta["version-badge"])
         if version_badge_content == version_text then
           css_class = "badge-prerelease bg-danger"
         else 
           css_class = "badge-release bg-success"
         end
-
-        local style = pandoc.utils.stringify(kwargs['style'])
-        if style then
-          style_text = ' style="' .. style .. '"'
-        else
-          style_text = ""
-        end
-
-        return pandoc.RawInline(
-          'html',
-          '<span class="badge rounded-pill ' .. css_class .. '"' .. style_text .. '>' .. 'v' .. version_text .. '</span>'
-        )
+      else
+        css_class = "badge-release bg-success"
       end
+        
+      local style = pandoc.utils.stringify(kwargs['style'])
+      if style then
+        style_text = ' style="' .. style .. '"'
+      else
+        style_text = ""
+      end
+
+      return pandoc.RawInline(
+        'html',
+        '<span class="badge rounded-pill ' .. css_class .. '"' .. style_text .. '>' .. 'v' .. version_text .. '</span>'
+      )
     end
   end
 }
