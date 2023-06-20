@@ -1,5 +1,6 @@
 ---
 title: "Version Badge Example"
+toc: true
 version-badge: 1.4-pre
 ---
 
