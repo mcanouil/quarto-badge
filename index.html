@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -46,9 +80,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#a-feature-here-from-ages-ago" id="toc-a-feature-here-from-ages-ago" class="nav-link active" data-scroll-target="#a-feature-here-from-ages-ago"><span class="badge rounded-pill badge-release bg-success" style="">v1.0</span> A feature here from ages ago<span class="badge rounded-pill badge-release bg-success" style="vertical-align: top !important;font-size: .40em !important;">v1.0</span></a></li>
-  <li><a href="#a-feature-here-from-a-while-ago" id="toc-a-feature-here-from-a-while-ago" class="nav-link" data-scroll-target="#a-feature-here-from-a-while-ago"><span class="badge rounded-pill badge-release bg-success" style="">v1.1</span> A feature here from a while ago<span class="badge rounded-pill badge-release bg-success" style="vertical-align: top !important;font-size: .40em !important;">v1.1</span></a></li>
-  <li><a href="#a-feature-not-quite-here-yet" id="toc-a-feature-not-quite-here-yet" class="nav-link" data-scroll-target="#a-feature-not-quite-here-yet"><span class="badge rounded-pill badge-prerelease bg-danger" style="">v1.4-pre</span> A feature not quite here yet<span class="badge rounded-pill badge-prerelease bg-danger" style="vertical-align: top !important;font-size: .40em !important;">v1.4-pre</span></a></li>
+  <li><a href="#a-feature-here-from-ages-ago" id="toc-a-feature-here-from-ages-ago" class="nav-link active" data-scroll-target="#a-feature-here-from-ages-ago"><span id="#badge-version" class="badge rounded-pill badge-default bg-success" title="release">v1.0</span> A feature here from ages ago</a></li>
+  <li><a href="#a-feature-here-from-a-while-ago" id="toc-a-feature-here-from-a-while-ago" class="nav-link" data-scroll-target="#a-feature-here-from-a-while-ago"><span id="#badge-version" class="badge rounded-pill badge-default bg-success" title="release">v1.1</span> A feature here from a while ago</a></li>
+  <li><a href="#a-feature-not-quite-here-yet" id="toc-a-feature-not-quite-here-yet" class="nav-link" data-scroll-target="#a-feature-not-quite-here-yet"><span id="#badge-version" class="badge rounded-pill badge-target bg-danger" title="pre-release">v1.4</span> A feature not quite here yet</a></li>
   </ul>
 </nav>
 </div>
@@ -56,7 +90,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Version Badge Example</h1>
+<div class="quarto-title-block"><div><h1 class="title">Version Badge Example</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -72,16 +106,18 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <section id="a-feature-here-from-ages-ago" class="level2">
-<h2 class="anchored" data-anchor-id="a-feature-here-from-ages-ago"><span class="badge rounded-pill badge-release bg-success" style="">v1.0</span> A feature here from ages ago<span class="badge rounded-pill badge-release bg-success" style="vertical-align: top !important;font-size: .40em !important;">v1.0</span></h2>
+<h2 class="anchored" data-anchor-id="a-feature-here-from-ages-ago"><span id="#badge-version" class="badge rounded-pill badge-default bg-success" title="release">v1.0</span> A feature here from ages ago</h2>
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nunc nisl eu</p>
 </section>
 <section id="a-feature-here-from-a-while-ago" class="level2">
-<h2 class="anchored" data-anchor-id="a-feature-here-from-a-while-ago"><span class="badge rounded-pill badge-release bg-success" style="">v1.1</span> A feature here from a while ago<span class="badge rounded-pill badge-release bg-success" style="vertical-align: top !important;font-size: .40em !important;">v1.1</span></h2>
+<h2 class="anchored" data-anchor-id="a-feature-here-from-a-while-ago"><span id="#badge-version" class="badge rounded-pill badge-default bg-success" title="release">v1.1</span> A feature here from a while ago</h2>
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nunc nisl eu</p>
 </section>
 <section id="a-feature-not-quite-here-yet" class="level2">
-<h2 class="anchored" data-anchor-id="a-feature-not-quite-here-yet"><span class="badge rounded-pill badge-prerelease bg-danger" style="">v1.4-pre</span> A feature not quite here yet<span class="badge rounded-pill badge-prerelease bg-danger" style="vertical-align: top !important;font-size: .40em !important;">v1.4-pre</span></h2>
+<h2 class="anchored" data-anchor-id="a-feature-not-quite-here-yet"><span id="#badge-version" class="badge rounded-pill badge-target bg-danger" title="pre-release">v1.4</span> A feature not quite here yet</h2>
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nunc nisl eu</p>
+<!-- -->
+
 </section>
 
 </main>
@@ -165,6 +201,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -381,7 +468,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Version Badge Example"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">code-tools:</span><span class="co"> true</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">version-badge:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">  version: 1.4</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">  type: pre-release</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">  default: release</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## {{&lt; v 1.0 &gt;}} A feature here from ages ago</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nunc nisl eu</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## {{&lt; v 1.1 &gt;}} A feature here from a while ago</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nunc nisl eu</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## {{&lt; v 1.4 &gt;}} A feature not quite here yet</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nunc nisl eu</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 

@@ -1,8 +1,22 @@
-.badge-release, .badge-prerelease {
+.badge-default, .badge-target {
   vertical-align: text-bottom !important;
   font-size: .65em !important;
 }
 
-.nav-link .badge-release, .nav-link .badge-prerelease {
+.nav-link .badge-default, .nav-link .badge-target {
   display: none;
 }
+
+/* Posit Colours
+.badge-default {
+  vertical-align: text-bottom !important;
+  font-size: .65em !important;
+  background-color: #447099 !important;
+}
+
+.badge-target {
+  vertical-align: text-bottom !important;
+  font-size: .65em !important;
+  background-color: #EE6331 !important;
+}
+*/
