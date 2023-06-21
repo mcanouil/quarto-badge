@@ -17,9 +17,24 @@ The shortcode `{{< v <version> style=<CSS style> >}}` will display a badge with 
 
 If `<version>` matches `version-badge` from the YAML frontmatter, the badge will be displayed with `bg-success` CSS class from Bootstrap, otherwise it will be displayed with `bg-danger`.
 
+- Short specification:
+
+  ```yaml
+  version-badge: 1.4
+  ```
+
+- Complete specification:
+
+  ```yaml
+  version-badge:
+    version: 1.4
+    type: pre-release
+    default: release
+  ```
+
 Additional CSS styles can be provided with the `style` parameter which will be added to the badge as inline CSS.
 
-The extension also provides two CSS classes: `.badge-release` and `.badge-prerelease` that can be used to style the badge.
+The extension also provides two CSS classes: `.badge-default` and `.badge-target` that can be used to style the badge.
 
 ## Example
 

@@ -33,18 +33,36 @@ return {
 
       local version_text = pandoc.utils.stringify(args[1])
       if meta["version-badge"] then
-        version_badge_content = pandoc.utils.stringify(meta["version-badge"])
+        if meta["version-badge"]["version"] then
+          version_badge_content = pandoc.utils.stringify(meta["version-badge"]["version"])
+        else
+          version_badge_content = pandoc.utils.stringify(meta["version-badge"])
+        end
+        if meta["version-badge"]["type"] then
+          type_badge_content = pandoc.utils.stringify(meta["version-badge"]["type"])
+        else
+          type_badge_content = "pre-release"
+        end
+        if meta["version-badge"]["default"] then
+          default_type_badge_content = pandoc.utils.stringify(meta["version-badge"]["default"])
+        else
+          default_type_badge_content = "release"
+        end
+
         if version_badge_content == version_text then
-          css_class = "badge-prerelease bg-danger"
+          css_class = "badge-target bg-danger"
+          version_type = ' title="' .. type_badge_content .. '"'
         else 
-          css_class = "badge-release bg-success"
+          css_class = "badge-default bg-success"
+          version_type = ' title="' .. default_type_badge_content .. '"'
         end
       else
-        css_class = "badge-release bg-success"
+        css_class = "badge-default bg-success"
+        version_type = ' title="' .. default_type_badge_content .. '"'
       end
         
       local style = pandoc.utils.stringify(kwargs['style'])
-      if style then
+      if style ~= "" then
         style_text = ' style="' .. style .. '"'
       else
         style_text = ""
@@ -52,7 +70,12 @@ return {
 
       return pandoc.RawInline(
         'html',
-        '<span class="badge rounded-pill ' .. css_class .. '"' .. style_text .. '>' .. 'v' .. version_text .. '</span>'
+        '<span id="#badge-version" class="badge rounded-pill ' ..
+          css_class .. '"' .. style_text ..
+          version_type ..
+        '>' ..
+          'v' .. version_text ..
+        '</span>'
       )
     end
   end

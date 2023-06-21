@@ -1,20 +1,24 @@
 ---
 title: "Version Badge Example"
 toc: true
-version-badge: 1.4-pre
+code-tools: true
+version-badge:
+  version: 1.4
+  type: pre-release
+  default: release
 ---
 
-## {{< v 1.0 >}} A feature here from ages ago{{< v 1.0 style="vertical-align: top !important;font-size: .40em !important;">}}
+## {{< v 1.0 >}} A feature here from ages ago
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl
 eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nunc nisl eu
 
-## {{< v 1.1 >}} A feature here from a while ago{{< v 1.1 style="vertical-align: top !important;font-size: .40em !important;">}}
+## {{< v 1.1 >}} A feature here from a while ago
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl
 eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nunc nisl eu
 
-## {{< v 1.4-pre >}} A feature not quite here yet{{< v 1.4-pre style="vertical-align: top !important;font-size: .40em !important;">}}
+## {{< v 1.4 >}} A feature not quite here yet
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl
 eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nunc nisl eu
