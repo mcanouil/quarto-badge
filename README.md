@@ -32,6 +32,13 @@ If `<version>` matches `version-badge` from the YAML frontmatter, the badge will
     default: release
   ```
 
+- Optional specification:
+
+  ```yaml
+  version-badge:
+    changelog: https://github.com/mcanouil/quarto-version-badge/releases/tag/{{version}}
+  ```
+
 Additional CSS styles can be provided with the `style` parameter which will be added to the badge as inline CSS.
 
 The extension also provides two CSS classes: `.badge-default` and `.badge-target` that can be used to style the badge.
