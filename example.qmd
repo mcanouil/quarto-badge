@@ -7,6 +7,7 @@ version-badge:
   type: pre-release
   default: release
   changelog: https://github.com/mcanouil/quarto-version-badge/releases/tag/{{version}}
+  prefix: "v"
 ---
 
 ## {{< v 1.0 >}} A feature here from ages ago

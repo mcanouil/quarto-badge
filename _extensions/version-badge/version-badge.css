@@ -3,7 +3,8 @@
   font-size: .65em !important;
 }
 
-.nav-link .badge-default, .nav-link .badge-target {
+.nav-link .badge-default,
+.nav-link .badge-target {
   display: none;
 }
 

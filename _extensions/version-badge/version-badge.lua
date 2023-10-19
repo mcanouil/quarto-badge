@@ -27,7 +27,6 @@ return {
     if quarto.doc.is_format("html") then
       quarto.doc.add_html_dependency({
         name = 'version-badge',
-        version = '1.0.0',
         stylesheets = {"version-badge.css"}
       })
 
@@ -47,6 +46,11 @@ return {
           default_type_badge_content = pandoc.utils.stringify(meta["version-badge"]["default"])
         else
           default_type_badge_content = "release"
+        end
+        if meta["version-badge"]["prefix"] then
+          default_prefix_content = pandoc.utils.stringify(meta["version-badge"]["prefix"])
+        else
+          default_prefix_content = ""
         end
 
         if version_badge_content == version_text then
@@ -68,7 +72,7 @@ return {
         style_text = ""
       end
 
-      version_text = 'v' .. version_text
+      version_text = default_prefix_content .. version_text
       if meta["version-badge"]["changelog"] ~= "" and meta["version-badge"]["changelog"] ~= nil then
         changelog = pandoc.utils.stringify(meta["version-badge"]["changelog"])
         version_text = '<a ' ..
