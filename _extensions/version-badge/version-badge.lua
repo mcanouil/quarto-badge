@@ -73,24 +73,27 @@ return {
       end
 
       version_text = default_prefix_content .. version_text
-      if meta["version-badge"]["changelog"] ~= "" and meta["version-badge"]["changelog"] ~= nil then
-        changelog = pandoc.utils.stringify(meta["version-badge"]["changelog"])
-        version_text = '<a ' ..
-          'href="' .. changelog:gsub("{{version}}", version_text) .. '"' ..
-          'style="text-decoration: none; color: inherit;"' ..
-        '>' ..
-        version_text ..
-        '</a>'
-      end
 
-      return pandoc.RawInline(
-        'html',
-        '<span id="#badge-version" class="badge rounded-pill ' ..
+      version_badge_text = '<span id="#badge-version" class="badge rounded-pill ' ..
           css_class .. '"' .. style_text ..
           version_type ..
         '>' ..
         version_text ..
         '</span>'
+
+      if meta["version-badge"]["changelog"] ~= "" and meta["version-badge"]["changelog"] ~= nil then
+        changelog = pandoc.utils.stringify(meta["version-badge"]["changelog"])
+        version_badge_text = '<a ' ..
+            'href="' .. changelog:gsub("{{version}}", version_text) .. '"' ..
+            'style="text-decoration: none; color: inherit;"' ..
+          '>' ..
+          version_badge_text ..
+          '</a>'
+      end
+
+      return pandoc.RawInline(
+        'html',
+        version_badge_text
       )
     end
   end
