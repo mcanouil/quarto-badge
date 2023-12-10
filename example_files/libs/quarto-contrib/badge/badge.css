@@ -1,0 +1,17 @@
+.quarto-badge {
+  vertical-align: text-bottom;
+  font-size: .65em;
+}
+
+.nav-link .quarto-badge {
+  display: none;
+}
+
+.quarto-badge-href {
+  text-decoration: none;
+  color: inherit;
+}
+
+a.nav-link.quarto-badge-href {
+  display: none;
+}
