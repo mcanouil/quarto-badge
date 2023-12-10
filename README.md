@@ -39,7 +39,7 @@ badge:
 {{< badge old 0.1.0 >}}
 ```
 
-> [!NOTE]
+> [!CAUTION]
 > The `href` attribute is optional and currently breaks the table of contents links when used in headers.
 
 ## Example
