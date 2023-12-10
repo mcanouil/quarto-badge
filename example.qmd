@@ -1,26 +1,29 @@
 ---
-title: "Version Badge Example"
+title: "Quarto Badge Example"
 toc: true
 code-tools: true
-version-badge:
-  version: 1.4
-  type: pre-release
-  default: release
-  changelog: https://github.com/mcanouil/quarto-version-badge/releases/tag/{{version}}
-  prefix: "v"
+badge:
+  - key: "current"
+    class: bg-success
+  - key: "future"
+    class: bg-danger
+    href: https://github.com/mcanouil/quarto-badge
+  - key: "old"
+    class: bg-warning
+    href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
 ---
 
-## {{< v 1.0 >}} A feature here from ages ago
+## {{< badge current 1.1 >}} A feature here from a while ago
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl
 eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nunc nisl eu
 
-## {{< v 1.1 >}} A feature here from a while ago
+## {{< badge future 1.4 >}} A feature not quite here yet
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl
 eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nunc nisl eu
 
-## {{< v 1.4 >}} A feature not quite here yet
+## {{< badge old 1.0 >}} A feature here from ages ago
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl
 eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nunc nisl eu

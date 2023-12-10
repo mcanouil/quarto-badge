@@ -1,11 +1,11 @@
-# Version Badge Extension For Quarto
+# Badge Extension For Quarto
 
-`version-badge` is an extension for Quarto to provide a shortcode to display software version.
+`badge` is an extension for Quarto to provide a shortcode to display software version.
 
 ## Installing
 
 ```bash
-quarto add mcanouil/quarto-version-badge
+quarto add mcanouil/quarto-badge
 ```
 
 This will install the extension under the `_extensions` subdirectory.
@@ -13,35 +13,26 @@ If you're using version control, you will want to check in this directory.
 
 ## Using
 
-The shortcode `{{< v <version> style=<CSS style> >}}` will display a badge with the given version number.
+The shortcode `{{< badge <key> <value> >}}` will display a badge with the given version number.
 
-If `<version>` matches `version-badge` from the YAML frontmatter, the badge will be displayed with `bg-success` CSS class from Bootstrap, otherwise it will be displayed with `bg-danger`.
+You can provide any number of badges by specifying an array under the `quarto-badge` key in the `_quarto.yml` file or in the front matter of the document.
 
-- Short specification:
+```yaml
+badge:
+  - key: "current"
+    class: "bg-success"
+  - key: "future"
+    class: "bg-danger"
+    href: "https://github.com/mcanouil/quarto-version-badge"
+  - key: "old"
+    class: bg-warning
+    href: "https://github.com/mcanouil/quarto-version-badge/releases/tag/{{value}}"
+```
 
-  ```yaml
-  version-badge: 1.4
-  ```
+`{{value}}` will be replaced by the value of the badge.
 
-- Complete specification:
-
-  ```yaml
-  version-badge:
-    version: 1.4
-    type: pre-release
-    default: release
-  ```
-
-- Optional specification:
-
-  ```yaml
-  version-badge:
-    changelog: https://github.com/mcanouil/quarto-version-badge/releases/tag/{{version}}
-  ```
-
-Additional CSS styles can be provided with the `style` parameter which will be added to the badge as inline CSS.
-
-The extension also provides two CSS classes: `.badge-default` and `.badge-target` that can be used to style the badge.
+> [!NOTE]
+> The `href` attribute is optional and currently breaks the table of contents links when used in headers.
 
 ## Example
 
