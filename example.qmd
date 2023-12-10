@@ -3,12 +3,12 @@ title: "Quarto Badge Example"
 toc: true
 code-tools: true
 badge:
-  - key: "current"
-    class: bg-success
-  - key: "future"
+  - key: current
+    colour: springgreen
+  - key: future
     class: bg-danger
     href: https://github.com/mcanouil/quarto-badge
-  - key: "old"
+  - key: old
     class: bg-warning
     href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
 ---

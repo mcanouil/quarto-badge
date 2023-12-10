@@ -11,7 +11,10 @@ return {
       local metaBadgeHref = ""
       for _, badge in ipairs(meta["badge"]) do
         local metaBadgeKey = pandoc.utils.stringify(badge["key"])
-        local metaBadgeClass = pandoc.utils.stringify(badge["class"])
+        local metaBadgeClass = ""
+        if badge["class"] ~= "" and badge["class"] ~= nil then
+          metaBadgeClass = pandoc.utils.stringify(badge["class"])
+        end
         if metaBadgeKey == badgeKey then
           if badge["href"] ~= "" and badge["href"] ~= nil then
             local metaBadgeHref = pandoc.utils.stringify(badge["href"])
@@ -25,8 +28,12 @@ return {
               badgeValue ..
               '</a>'
           end
-          badgeContent = '<span ' .. badgeKey ..
-            '" class="badge rounded-pill quarto-badge ' .. metaBadgeClass .. '">' ..
+          local style = ""
+          if (badge["colour"] ~= "" and badge["colour"] ~= nil) or (badge["color"] ~= "" and badge["color"] ~= nil) then
+            metaBadgeColor = pandoc.utils.stringify(badge["colour"] or badge["color"])
+            style = 'style="background-color: ' .. metaBadgeColor .. ';' .. '"'
+          end
+          badgeContent = '<span class="badge rounded-pill quarto-badge ' .. metaBadgeClass .. '" ' .. style .. '>' ..
             badgeValue ..
             '</span>'
         end
