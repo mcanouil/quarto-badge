@@ -35,7 +35,7 @@ jobs:
       - name: Render Quarto Project
         shell: bash
         run: |
-          quarto render --to html --output index.html
+          quarto render example.qmd --to html --output index.html --output-dir _site
       
       - uses: actions/configure-pages@v5
 
