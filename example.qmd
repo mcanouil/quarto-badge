@@ -1,7 +1,10 @@
 ---
 title: "Quarto Badge Example"
-toc: true
-code-tools: true
+format:
+  html:
+    output-file: index
+    code-tools: true
+    toc: true
 badge:
   - key: current
     colour: springgreen
