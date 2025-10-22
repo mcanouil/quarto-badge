@@ -1,5 +1,5 @@
 --- Load utils module
-local utils_path = quarto.utils.resolve_path("utils.lua")
+local utils_path = quarto.utils.resolve_path("_modules/utils.lua")
 local utils = require(utils_path)
 
 return {
