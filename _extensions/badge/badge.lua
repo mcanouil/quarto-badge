@@ -1,3 +1,7 @@
+--- Load utils module
+local utils_path = quarto.utils.resolve_path("utils.lua")
+local utils = require(utils_path)
+
 return {
   ['badge'] = function(args, kwargs, meta)
     if quarto.doc.is_format("html") then
@@ -5,19 +9,19 @@ return {
         name = 'badge',
         stylesheets = {"badge.css"}
       })
-      local badgeKey = pandoc.utils.stringify(args[1])
-      local badgeValue = pandoc.utils.stringify(args[2])
+      local badgeKey = utils.stringify(args[1])
+      local badgeValue = utils.stringify(args[2])
       local badgeContent = ""
       local metaBadgeHref = ""
       for _, badge in ipairs(meta["badge"]) do
-        local metaBadgeKey = pandoc.utils.stringify(badge["key"])
+        local metaBadgeKey = utils.stringify(badge["key"])
         local metaBadgeClass = ""
         if badge["class"] ~= "" and badge["class"] ~= nil then
-          metaBadgeClass = pandoc.utils.stringify(badge["class"])
+          metaBadgeClass = utils.stringify(badge["class"])
         end
         if metaBadgeKey == badgeKey then
           if badge["href"] ~= "" and badge["href"] ~= nil then
-            local metaBadgeHref = pandoc.utils.stringify(badge["href"])
+            local metaBadgeHref = utils.stringify(badge["href"])
             if metaBadgeHref:find("{{value}}") then
               metaBadgeHref = metaBadgeHref:gsub("{{value}}", badgeValue)
             end
@@ -30,7 +34,7 @@ return {
           end
           local style = ""
           if (badge["colour"] ~= "" and badge["colour"] ~= nil) or (badge["color"] ~= "" and badge["color"] ~= nil) then
-            metaBadgeColor = pandoc.utils.stringify(badge["colour"] or badge["color"])
+            metaBadgeColor = utils.stringify(badge["colour"] or badge["color"])
             style = 'style="background-color: ' .. metaBadgeColor .. ';' .. '"'
           end
           badgeContent = '<span class="badge rounded-pill quarto-badge ' .. metaBadgeClass .. '" ' .. style .. '>' ..
