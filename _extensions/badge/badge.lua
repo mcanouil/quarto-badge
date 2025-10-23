@@ -32,11 +32,11 @@ local utils = require(utils_path)
 --- The shortcode renders badges with optional hyperlinks and custom styling.
 ---
 --- @param args table Array of positional arguments (badge key and value)
---- @param kwargs table Table of named keyword arguments (unused)
+--- @param _kwargs table Table of named keyword arguments (unused)
 --- @param meta table Document metadata containing badge definitions
 --- @return pandoc.RawInline|nil HTML badge element or nil for non-HTML formats
 --- @usage {{< badge key value >}}
-local function badge(args, kwargs, meta)
+local function badge(args, _kwargs, meta)
   if quarto.doc.is_format("html") then
     quarto.doc.add_html_dependency({
       name = 'badge',
