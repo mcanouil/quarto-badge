@@ -1,32 +1,145 @@
 ---
-title: "Quarto Badge Example"
+title: "Quarto Badge Extension Example"
 format:
   html:
     output-file: index
     code-tools: true
     toc: true
-badge:
-  - key: current
-    colour: springgreen
-  - key: future
-    class: bg-danger
-    href: https://github.com/mcanouil/quarto-badge
-  - key: old
-    class: bg-warning
-    href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
+extensions:
+  badge:
+    - key: current
+      colour: springgreen
+    - key: future
+      class: bg-danger
+      href: https://github.com/mcanouil/quarto-badge
+    - key: deprecated
+      class: bg-warning
+      href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
+    - key: stable
+      colour: "#28a745"
+    - key: beta
+      colour: "#ffc107"
+    - key: experimental
+      class: bg-info
 ---
 
-## {{< badge current 1.1 >}} A feature here from a while ago
+## Introduction
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl
-eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nunc nisl eu
+This document demonstrates the various features of the Badge extension for Quarto.
+Badges can be used to highlight version information, feature status, or any categorised content.
 
-## {{< badge future 1.4 >}} A feature not quite here yet
+## Installation
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl
-eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nunc nisl eu
+To install this extension in your Quarto project, run the following command:
 
-## {{< badge old 1.0 >}} A feature here from ages ago
+```bash
+quarto add mcanouil/quarto-badge
+```
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl
-eget aliquam ultricies, nunc nisl aliquet nunc, quis aliquam nunc nisl eu
+This will install the extension under the `_extensions` subdirectory.
+If you're using version control, you will want to check in this directory.
+
+## Configuration
+
+Define badge configurations in the `_quarto.yml` file or in the front matter of individual documents under the `extensions.badge` key.
+
+### Configuration Options
+
+Each badge configuration supports the following properties:
+
+- **`key`** (required): The identifier used in the shortcode to reference this badge configuration.
+- **`colour`** or **`color`** (optional): A CSS colour value (e.g., `firebrick`, `#ff0000`, `rgb(255, 0, 0)`).
+- **`class`** (optional): CSS class(es) to apply to the badge (e.g., Bootstrap classes like `bg-danger`, `bg-warning`).
+- **`href`** (optional): URL to link the badge to. Use `{{value}}` as a placeholder to insert the badge value into the URL.
+
+### Example Configuration
+
+The badges used in this document are configured in the front matter as follows:
+
+```yaml
+extensions:
+  badge:
+    - key: current
+      colour: springgreen
+    - key: future
+      class: bg-danger
+      href: https://github.com/mcanouil/quarto-badge
+    - key: deprecated
+      class: bg-warning
+      href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
+    - key: stable
+      colour: "#28a745"
+    - key: beta
+      colour: "#ffc107"
+    - key: experimental
+      class: bg-info
+```
+
+## Basic Badge Usage
+
+You can use badges inline within text or in headings using the shortcode syntax `{{{< badge <key> <value> >}}}`.
+
+For example, `{{{< badge stable 2.1.0 >}}}` renders as {{< badge stable 2.1.0 >}}, which is the current stable release.
+The `{{{< badge beta 2.2.0 >}}}` shortcode produces {{< badge beta 2.2.0 >}} to indicate experimental features.
+
+## Badges in Section Headers
+
+Badges can be included in section headers to indicate feature status or version information.
+
+### {{< badge current 1.1 >}} Current Features
+
+Using `### {{{< badge current 1.1 >}}} Current Features` in the heading.
+
+This section describes features that are available in the current release.
+
+{{< lipsum 1 >}}
+
+### {{< badge future 2.0 >}} Upcoming Features
+
+Using `### {{{< badge future 2.0 >}}} Upcoming Features` in the heading.
+
+These features are planned for future releases.
+
+{{< lipsum 1 >}}
+
+### {{< badge deprecated 1.0 >}} Deprecated Features
+
+Using `### {{{< badge deprecated 1.0 >}}} Deprecated Features` in the heading.
+
+Legacy features that are maintained for backward compatibility.
+
+{{< lipsum 1 >}}
+
+## Styling Options
+
+### Colour-Based Badges
+
+Badges can use direct colour values:
+
+- `{{{< badge stable 3.2.1 >}}}` renders as {{< badge stable 3.2.1 >}} (using hex colour `#28a745`).
+- `{{{< badge beta 3.3.0-beta1 >}}}` renders as {{< badge beta 3.3.0-beta1 >}} (using hex colour `#ffc107`).
+
+### Class-Based Badges
+
+Badges can use Bootstrap classes for styling:
+
+- `{{{< badge experimental alpha >}}}` renders as {{< badge experimental alpha >}} (using `bg-info` class).
+- `{{{< badge future next >}}}` renders as {{< badge future next >}} (using `bg-danger` class).
+
+### Linked Badges
+
+Badges can include hyperlinks using the `href` configuration option:
+
+- `{{{< badge deprecated 1.0 >}}}` renders as {{< badge deprecated 1.0 >}} (links to GitHub releases).
+- `{{{< badge future 2.0 >}}}` renders as {{< badge future 2.0 >}} (links to repository).
+
+## Multiple Badge Types
+
+You can combine different badge types in a single document:
+
+- `{{{< badge current 1.1 >}}}` produces {{< badge current 1.1 >}}.
+- `{{{< badge future 1.4 >}}}` produces {{< badge future 1.4 >}}.
+- `{{{< badge deprecated 1.0 >}}}` produces {{< badge deprecated 1.0 >}}.
+- `{{{< badge stable 2.1.0 >}}}` produces {{< badge stable 2.1.0 >}}.
+- `{{{< badge beta 2.2.0 >}}}` produces {{< badge beta 2.2.0 >}}.
+- `{{{< badge experimental new >}}}` produces {{< badge experimental new >}}.
