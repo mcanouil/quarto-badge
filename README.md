@@ -113,6 +113,10 @@ Badges can be used in section headers to indicate feature status or version info
 
 Here is the source code for a minimal example: [example.qmd](example.qmd).
 
+Output of `example.qmd`:
+
+- [HTML](https://m.canouil.dev/quarto-badge/)
+
 ## Notes
 
 - The extension only works with HTML output formats.
