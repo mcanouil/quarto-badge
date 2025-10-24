@@ -2,16 +2,17 @@
 
 `badge` is an extension for Quarto to provide a shortcode to display styled badges for software versions, feature status, or any other categorised information.
 
-## Installing
+## Installation
 
 ```bash
 quarto add mcanouil/quarto-badge
 ```
 
 This will install the extension under the `_extensions` subdirectory.
+
 If you're using version control, you will want to check in this directory.
 
-## Using
+## Usage
 
 ### Basic Usage
 
