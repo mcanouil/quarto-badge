@@ -5,7 +5,7 @@
 ## Installation
 
 ```bash
-quarto add mcanouil/quarto-badge
+quarto add mcanouil/quarto-badge@2.2.2
 ```
 
 This will install the extension under the `_extensions` subdirectory.
@@ -35,10 +35,10 @@ extensions:
       colour: springgreen
     - key: future
       class: bg-danger
-      href: https://github.com/mcanouil/quarto-badge
+      href: https://github.com/mcanouil/quarto-badge@2.2.2
     - key: old
       class: bg-warning
-      href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
+      href: https://github.com/mcanouil/quarto-badge@2.2.2/releases/tag/{{value}}
 ```
 
 ### Configuration Options
