@@ -1,0 +1,50 @@
+# _schema.yml for "badge" shortcode extension
+# Describes options and shortcode arguments for IDE tooling and runtime validation.
+
+# Extension-level metadata options.
+# Configured in _quarto.yml, _metadata.yml, or document front matter:
+#   extensions:
+#     badge:
+#       - key: "status"
+#         class: "bg-success"
+#         colour: "#28a745"
+#         href: "https://example.com"
+options:
+  badge:
+    type: array
+    description: "Array of badge configuration objects."
+    items:
+      type: object
+      properties:
+        key:
+          type: string
+          required: true
+          description: "Unique identifier for the badge, used as the first shortcode argument."
+        class:
+          type: string
+          description: "CSS class to apply to the badge element."
+        colour:
+          type: string
+          description: "Background colour for the badge (hex or colour name)."
+          aliases:
+            - color
+          completion:
+            type: color
+        href:
+          type: string
+          description: "URL to link the badge to. Use '{{value}}' as a placeholder for the badge value."
+
+# Per-shortcode schemas.
+# Describes positional arguments for {{< badge >}}.
+shortcodes:
+  badge:
+    description: "Renders a styled badge element based on metadata configuration."
+    arguments:
+      - name: key
+        type: string
+        required: true
+        description: "The badge key matching a configuration entry in the metadata."
+      - name: value
+        type: string
+        required: true
+        description: "The text content to display inside the badge."
