@@ -1,8 +1,11 @@
 # Schema for the badge extension
 
+$schema: https://m.canouil.dev/quarto-wizard/assets/schema/v1/extension-schema.json
+
 options:
   badge:
     type: array
+    min-items: 1
     description: "Array of badge configuration objects."
     items:
       type: object
