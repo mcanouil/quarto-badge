@@ -9,5 +9,5 @@ authors:
 repository-code: "https://github.com/mcanouil/quarto-badge"
 url: "http://m.canouil.dev/quarto-badge/"
 license: "MIT"
-date-released: "2026-02-11"
-version: 2.2.2
+date-released: "2026-02-21"
+version: 2.3.0
