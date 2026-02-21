@@ -6,12 +6,17 @@
 --- Extension name constant
 local EXTENSION_NAME = 'badge'
 
---- Load utils module
+--- Load utils and schema modules
 local utils = require(quarto.utils.resolve_path('_modules/utils.lua'):gsub('%.lua$', ''))
+local schema = require(quarto.utils.resolve_path('_modules/schema.lua'):gsub('%.lua$', ''))
 
 --- Flag to track if deprecation warning has been shown
 --- @type boolean
 local deprecation_warning_shown = false
+
+--- Cached validated options from schema (lazily initialised on first shortcode call)
+--- @type table|nil
+local validated_options = nil
 
 --- Badge shortcode handler.
 --- Generates styled badge elements from document metadata configuration.
@@ -37,6 +42,11 @@ local function badge(args, _kwargs, meta)
   local badgeKey = utils.stringify(args[1])
   --- @type string Badge value/content to display
   local badgeValue = utils.stringify(args[2])
+
+  -- Validate options on first call
+  if validated_options == nil then
+    validated_options = schema.validate_options(meta, EXTENSION_NAME, quarto.utils.resolve_path('_schema.yml'))
+  end
 
   -- Get badge configurations from metadata (prefer scoped extensions.badge)
   --- @type table|nil Array of badge configurations
