@@ -41,8 +41,8 @@ local function badge(args, _kwargs, meta)
   -- Get badge configurations from metadata (prefer scoped extensions.badge)
   --- @type table|nil Array of badge configurations
   local badge_configs
-  if meta['extensions'] ~= nil and meta['extensions'][EXTENSION_NAME] ~= nil then
-    badge_configs = meta['extensions'][EXTENSION_NAME]
+  if utils.get_extension_config(meta, EXTENSION_NAME) then
+    badge_configs = utils.get_extension_config(meta, EXTENSION_NAME)
   else
     -- Check deprecated top-level structure
     badge_configs, deprecation_warning_shown = utils.check_deprecated_config(
