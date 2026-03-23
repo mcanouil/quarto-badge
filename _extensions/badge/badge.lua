@@ -6,8 +6,10 @@
 --- Extension name constant
 local EXTENSION_NAME = 'badge'
 
---- Load utils module
-local utils = require(quarto.utils.resolve_path('_modules/utils.lua'):gsub('%.lua$', ''))
+--- Load modules
+local str = require(quarto.utils.resolve_path('_modules/string.lua'):gsub('%.lua$', ''))
+local meta_mod = require(quarto.utils.resolve_path('_modules/metadata.lua'):gsub('%.lua$', ''))
+local pdoc = require(quarto.utils.resolve_path('_modules/pandoc-helpers.lua'):gsub('%.lua$', ''))
 
 --- Flag to track if deprecation warning has been shown
 --- @type boolean
@@ -34,18 +36,18 @@ local function badge(args, _kwargs, meta)
   })
 
   --- @type string Badge key from metadata
-  local badgeKey = utils.stringify(args[1])
+  local badgeKey = str.stringify(args[1])
   --- @type string Badge value/content to display
-  local badgeValue = utils.stringify(args[2])
+  local badgeValue = str.stringify(args[2])
 
   -- Get badge configurations from metadata (prefer scoped extensions.badge)
   --- @type table|nil Array of badge configurations
   local badge_configs
-  if utils.get_extension_config(meta, EXTENSION_NAME) then
-    badge_configs = utils.get_extension_config(meta, EXTENSION_NAME)
+  if meta_mod.get_extension_config(meta, EXTENSION_NAME) then
+    badge_configs = meta_mod.get_extension_config(meta, EXTENSION_NAME)
   else
     -- Check deprecated top-level structure
-    badge_configs, deprecation_warning_shown = utils.check_deprecated_config(
+    badge_configs, deprecation_warning_shown = meta_mod.check_deprecated_config(
       meta,
       EXTENSION_NAME,
       nil,  -- nil key indicates we want the entire extension config (array)
@@ -53,7 +55,7 @@ local function badge(args, _kwargs, meta)
     )
   end
 
-  if utils.is_object_empty(badge_configs) then
+  if pdoc.is_object_empty(badge_configs) then
     return nil
   end
 
@@ -62,22 +64,22 @@ local function badge(args, _kwargs, meta)
 
   for _, badge_config in ipairs(badge_configs) do
     --- @type string Badge key from metadata entry
-    local metaBadgeKey = utils.stringify(badge_config['key'])
+    local metaBadgeKey = str.stringify(badge_config['key'])
 
     if metaBadgeKey == badgeKey then
       --- @type string CSS class for the badge
       local metaBadgeClass = ''
-      if not utils.is_empty(badge_config['class']) then
-        metaBadgeClass = utils.stringify(badge_config['class'])
+      if not str.is_empty(badge_config['class']) then
+        metaBadgeClass = str.stringify(badge_config['class'])
       end
 
       --- @type string Badge value (potentially wrapped in link)
       local displayValue = badgeValue
 
       -- Process optional href (hyperlink)
-      if not utils.is_empty(badge_config['href']) then
+      if not str.is_empty(badge_config['href']) then
         --- @type string Hyperlink URL for the badge
-        local metaBadgeHref = utils.stringify(badge_config['href'])
+        local metaBadgeHref = str.stringify(badge_config['href'])
         -- Replace {{value}} placeholder with actual badge value
         if metaBadgeHref:find('{{value}}') then
           metaBadgeHref = metaBadgeHref:gsub('{{value}}', badgeValue)
@@ -94,8 +96,8 @@ local function badge(args, _kwargs, meta)
       --- @type string Custom style attribute for badge colour
       local style = ''
       local colour = badge_config['colour'] or badge_config['color']
-      if not utils.is_empty(colour) then
-        local metaBadgeColour = utils.stringify(colour)
+      if not str.is_empty(colour) then
+        local metaBadgeColour = str.stringify(colour)
         style = 'style="background-color: ' .. metaBadgeColour .. ';" '
       end
 
