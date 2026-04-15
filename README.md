@@ -35,10 +35,10 @@ extensions:
       colour: springgreen
     - key: future
       class: bg-danger
-      href: https://github.com/mcanouil/quarto-badge@2.4.0
+      href: https://github.com/mcanouil/quarto-badge
     - key: old
       class: bg-warning
-      href: https://github.com/mcanouil/quarto-badge@2.4.0/releases/tag/{{value}}
+      href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
 ```
 
 ### Configuration Options
