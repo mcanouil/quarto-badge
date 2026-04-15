@@ -1,6 +1,6 @@
 title: badge
 author: Mickaël Canouil
-version: 2.4.0
+version: 2.4.1
 quarto-required: ">=1.6.0"
 contributes:
   shortcodes:
