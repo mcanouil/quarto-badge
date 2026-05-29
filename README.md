@@ -5,7 +5,7 @@
 ## Installation
 
 ```bash
-quarto add mcanouil/quarto-badge
+quarto add mcanouil/quarto-badge@2.4.1
 ```
 
 This will install the extension under the `_extensions` subdirectory.
