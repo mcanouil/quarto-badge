@@ -19,7 +19,7 @@ options:
           description: "CSS class to apply to the badge element."
         colour:
           type: string
-          description: "Background colour for the badge (hex or colour name)."
+          description: "Background colour for the badge (CSS named colour, hex, rgb/rgba, hsl/hsla, or hwb value)."
           aliases:
             - color
           completion:
@@ -27,6 +27,58 @@ options:
         href:
           type: string
           description: "URL to link the badge to. Use '{{value}}' as a placeholder for the badge value."
+        target:
+          type: string
+          description: "Link target attribute when 'href' is set. Allowed values are _self, _blank, _parent, _top."
+          enum:
+            - _self
+            - _blank
+            - _parent
+            - _top
+        title:
+          type: string
+          description: "Tooltip text shown on hover. The '{{value}}' placeholder is replaced with the badge value."
+        icon:
+          type: string
+          description: "Optional Bootstrap icon name (without the 'bi-' prefix) prepended before the badge value."
+  badge-overrides:
+    type: array
+    min-items: 1
+    description: "Document-level overrides for badge configurations defined at project level. Entries are matched by 'key'; matching keys are replaced, new keys are appended."
+    items:
+      type: object
+      properties:
+        key:
+          type: string
+          required: true
+          description: "Badge key to override or define."
+        class:
+          type: string
+          description: "CSS class to apply to the badge element."
+        colour:
+          type: string
+          description: "Background colour for the badge."
+          aliases:
+            - color
+          completion:
+            type: color
+        href:
+          type: string
+          description: "URL to link the badge to. Use '{{value}}' as a placeholder for the badge value."
+        target:
+          type: string
+          description: "Link target attribute."
+          enum:
+            - _self
+            - _blank
+            - _parent
+            - _top
+        title:
+          type: string
+          description: "Tooltip text shown on hover."
+        icon:
+          type: string
+          description: "Optional Bootstrap icon name (without the 'bi-' prefix)."
 
 # Per-shortcode schemas.
 # Describes positional arguments for {{< badge >}}.
