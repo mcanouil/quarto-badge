@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2.5.0 (2026-05-31)
+
 ### New Features
 
 - feat: Add `icon` configuration option for a Bootstrap icon prefix shown before the badge value.
