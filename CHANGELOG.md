@@ -2,6 +2,29 @@
 
 ## Unreleased
 
+### New Features
+
+- feat: Add `icon` configuration option for a Bootstrap icon prefix shown before the badge value.
+- feat: Add `target` configuration option for the link target attribute, automatically setting `rel="noopener noreferrer"` for `_blank`.
+- feat: Add `title` configuration option for a hover tooltip, with `{{value}}` placeholder support.
+- feat: Validate `colour` against CSS named colours, hex, `rgb`/`rgba`, `hsl`/`hsla`, `hwb`, `lab`, `lch`, `oklab`, `oklch`, and `color()` values; invalid values are warned and ignored.
+- feat: Validate `href` (after `{{value}}` substitution) and reject malformed or disallowed-scheme URLs with a warning.
+- feat: Support per-document badge overrides via the `badge-overrides` metadata key; entries override matching `key` values from the base configuration and new keys are appended.
+
+### Bug Fixes
+
+- fix: Warn when the badge shortcode is invoked with a key that is not configured (previously rendered an empty element silently).
+- fix: HTML-escape the badge value, `href` attribute, `{{value}}` substitution result, and `class`/`title` attributes to prevent attribute injection.
+
+### Refactoring
+
+- refactor: Synchronise shared modules (`string.lua`, `logging.lua`, `metadata.lua`, `pandoc-helpers.lua`) with the canonical source and add `colour.lua` for colour validation.
+
+### Documentation
+
+- docs: Document new configuration options, validation behaviour, and document-level overrides in README and example.
+- docs: Extend `_schema.yml` with the new properties and the `badge-overrides` key.
+
 ## 2.4.1 (2026-04-15)
 
 ### Refactoring

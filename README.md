@@ -47,8 +47,31 @@ Each badge configuration supports the following properties:
 
 - **`key`** (required): The identifier used in the shortcode to reference this badge configuration.
 - **`colour`** or **`color`** (optional): A CSS colour value (e.g., `firebrick`, `#ff0000`, `rgb(255, 0, 0)`).
+  Invalid values are reported via a `quarto.log.warning` call and ignored.
 - **`class`** (optional): CSS class(es) to apply to the badge (e.g., Bootstrap classes like `bg-danger`, `bg-warning`).
-- **`href`** (optional): URL to link the badge to. Use `{{value}}` as a placeholder to insert the badge value into the URL.
+- **`href`** (optional): URL to link the badge to.
+  Use `{{value}}` as a placeholder to insert the badge value into the URL.
+  Disallowed schemes (such as `javascript:`) are reported via a warning and ignored.
+- **`target`** (optional): Link target attribute used together with `href`.
+  Allowed values are `_self`, `_blank`, `_parent`, and `_top`.
+  When set to `_blank`, the link automatically receives `rel="noopener noreferrer"`.
+- **`title`** (optional): Tooltip text shown on hover.
+  The `{{value}}` placeholder is replaced with the badge value.
+- **`icon`** (optional): Bootstrap icon name (without the `bi-` prefix) shown before the badge value.
+
+### Document-Level Overrides
+
+Project-level badges defined in `_quarto.yml` can be overridden on a per-document basis using the `badge-overrides` key in the document front matter.
+Entries are matched by `key`; matching keys are replaced and new keys are appended.
+
+```yaml
+badge-overrides:
+  - key: experimental
+    colour: hotpink
+  - key: doc-only
+    colour: teal
+    icon: stars
+```
 
 ### Examples
 
@@ -94,6 +117,23 @@ extensions:
 
 This creates a badge linking to `https://github.com/user/repo/releases/tag/v1.5.0`.
 
+#### Badge with Icon, Tooltip, and Link Target
+
+```yaml
+extensions:
+  badge:
+    - key: download
+      colour: dodgerblue
+      icon: download
+      href: https://github.com/user/repo/releases/tag/v{{value}}
+      target: _blank
+      title: "Download release {{value}} in a new tab"
+```
+
+```markdown
+{{< badge download 1.5.0 >}}
+```
+
 ### Using Badges in Headers
 
 Badges can be used in section headers to indicate feature status or version information:
@@ -109,6 +149,17 @@ Badges can be used in section headers to indicate feature status or version info
 > [!CAUTION]
 > The `href` attribute is optional and currently breaks the table of contents links when used in headers.
 
+## Validation and Warnings
+
+The extension emits warnings via `quarto.log.warning` (each unique value is only warned about once per render) in the following cases:
+
+- The shortcode is invoked with a key that is not defined in metadata.
+- A configured `colour` value is not a recognised CSS colour, hex, `rgb`/`rgba`, `hsl`/`hsla`, `hwb`, `lab`, `lch`, `oklab`, `oklch`, or `color()` value.
+- A configured `href` (after `{{value}}` substitution) is not a plausible URL or uses a disallowed scheme.
+- A configured `target` is not one of `_self`, `_blank`, `_parent`, or `_top`.
+
+In all of these cases the offending attribute is dropped rather than silently emitted, and the badge still renders (or is replaced by an empty inline when the key is unknown).
+
 ## Example
 
 Here is the source code for a minimal example: [example.qmd](example.qmd).
@@ -120,4 +171,5 @@ Output of `example.qmd`:
 ## Notes
 
 - The extension only works with HTML output formats.
+- All user-supplied values are HTML-escaped before they are written to the document.
 - The deprecated top-level `badge` configuration (instead of `extensions.badge`) is still supported but will show a warning.

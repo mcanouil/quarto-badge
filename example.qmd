@@ -26,6 +26,22 @@ extensions:
       colour: "#ffc107"
     - key: experimental
       class: bg-info
+    - key: download
+      colour: dodgerblue
+      icon: download
+      href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
+      target: _blank
+      title: "Download release {{value}} in a new tab"
+    - key: release-note
+      colour: gold
+      title: "Notes for release {{value}}"
+badge-overrides:
+  - key: experimental
+    colour: hotpink
+    class: ""
+  - key: doc-only
+    colour: teal
+    icon: stars
 ---
 
 ## Introduction
@@ -45,12 +61,12 @@ If you're using version control, you will want to check in this directory.
 
 ## Usage
 
-The shortcode `{{< badge <key> <value> >}}` displays a badge with the specified key and value.
+The shortcode `{{{< badge <key> <value> >}}}` displays a badge with the specified key and value.
 
 ```markdown
-{{< badge current 1.0.0 >}}
-{{< badge future 2.0.0 >}}
-{{< badge old 0.1.0 >}}
+{{{< badge current 1.0.0 >}}}
+{{{< badge future 2.0.0 >}}}
+{{{< badge old 0.1.0 >}}}
 ```
 
 ## Configuration
@@ -63,8 +79,17 @@ Each badge configuration supports the following properties:
 
 - **`key`** (required): The identifier used in the shortcode to reference this badge configuration.
 - **`colour`** or **`color`** (optional): A CSS colour value (e.g., `firebrick`, `#ff0000`, `rgb(255, 0, 0)`).
+  Invalid values are reported via a warning and ignored.
 - **`class`** (optional): CSS class(es) to apply to the badge (e.g., Bootstrap classes like `bg-danger`, `bg-warning`).
-- **`href`** (optional): URL to link the badge to. Use `{{value}}` as a placeholder to insert the badge value into the URL.
+- **`href`** (optional): URL to link the badge to.
+  Use `{{value}}` as a placeholder to insert the badge value into the URL.
+  Disallowed schemes (such as `javascript:`) are reported via a warning and ignored.
+- **`target`** (optional): Link target attribute.
+  Allowed values are `_self`, `_blank`, `_parent`, and `_top`.
+  When set to `_blank` the link automatically receives `rel="noopener noreferrer"`.
+- **`title`** (optional): Tooltip text shown on hover.
+  The `{{value}}` placeholder is also supported.
+- **`icon`** (optional): Bootstrap icon name (without the `bi-` prefix) shown before the value.
 
 ### Example Configuration
 
@@ -87,6 +112,30 @@ extensions:
       colour: "#ffc107"
     - key: experimental
       class: bg-info
+    - key: download
+      colour: dodgerblue
+      icon: download
+      href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
+      target: _blank
+      title: "Download release {{value}} in a new tab"
+    - key: release-note
+      colour: gold
+      title: "Notes for release {{value}}"
+```
+
+### Document-Level Overrides
+
+Project-level badges defined in `_quarto.yml` can be overridden in a single document via the `badge-overrides` key.
+Entries are matched by `key`; matching keys are replaced and new keys are appended.
+
+```yaml
+badge-overrides:
+  - key: experimental
+    colour: hotpink
+    class: ""
+  - key: doc-only
+    colour: teal
+    icon: stars
 ```
 
 ## Basic Badge Usage
@@ -137,7 +186,7 @@ Badges can use direct colour values:
 
 Badges can use Bootstrap classes for styling:
 
-- `{{{< badge experimental alpha >}}}` renders as {{< badge experimental alpha >}} (using `bg-info` class).
+- `{{{< badge experimental alpha >}}}` renders as {{< badge experimental alpha >}} (overridden to a hot pink background by the document overrides).
 - `{{{< badge future next >}}}` renders as {{< badge future next >}} (using `bg-danger` class).
 
 ### Linked Badges
@@ -146,6 +195,15 @@ Badges can include hyperlinks using the `href` configuration option:
 
 - `{{{< badge deprecated 1.0 >}}}` renders as {{< badge deprecated 1.0 >}} (links to GitHub releases).
 - `{{{< badge future 2.0 >}}}` renders as {{< badge future 2.0 >}} (links to repository).
+
+### Icons, Tooltips, and Link Targets
+
+- `{{{< badge download v2.5.0 >}}}` renders as {{< badge download v2.5.0 >}}, combining an icon prefix, a link, a `_blank` target, and a tooltip.
+- `{{{< badge release-note v2.5.0 >}}}` renders as {{< badge release-note v2.5.0 >}} with a hover tooltip.
+
+### Document-Level Override
+
+- `{{{< badge doc-only beta >}}}` renders as {{< badge doc-only beta >}} (defined only via `badge-overrides`).
 
 ## Multiple Badge Types
 
