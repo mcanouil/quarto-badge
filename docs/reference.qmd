@@ -46,7 +46,7 @@ Every property applies to one entry of the `extensions.badge` array.
 | Option | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
 | `key` | string | Yes | | The identifier the shortcode's first argument matches. |
-| `colour` | string | No | | Background colour of the badge. Aliased as `color`. Applied as an inline `background-color` style, so it wins over any colour a `class` sets. |
+| `colour` | string | No | | Background colour of the badge, applied as an inline `background-color` style. Aliased as `color`. |
 | `class` | string | No | | CSS class or classes added to the badge, such as the Bootstrap `bg-danger` and `bg-warning` helpers. |
 | `href` | string | No | | Link target for the badge. `{{value}}` is replaced by the shortcode's second argument. |
 | `target` | string | No | | Link target attribute, used only alongside `href`. One of `_self`, `_blank`, `_parent`, `_top`. |
@@ -57,6 +57,12 @@ Every property applies to one entry of the `extensions.badge` array.
 
 `{{value}}` is substituted in `href` and in `title` only.
 A percent sign in the value is escaped before substitution, so it is inserted literally.
+
+::: {.callout-note}
+Set `colour` or `class`, not both.
+The Bootstrap background utilities, `bg-warning` and the rest, declare `background-color` with `!important`, so a `class` beats the inline style `colour` writes.
+An override that wants a colour in place of an inherited class has to clear the class with `class: ""`.
+:::
 
 ### Document-level overrides
 
@@ -124,6 +130,8 @@ Styling hooks: `.quarto-badge` on the badge itself and `.quarto-badge-href` on t
 
 - HTML output formats only. Everywhere else the shortcode renders as an empty inline, and the surrounding text is untouched.
 - `icon` needs a format that ships [Bootstrap Icons](https://icons.getbootstrap.com), which Quarto's HTML formats do.
+
+- A badge in a heading is hidden wherever that heading's text is reused in navigation: the extension's stylesheet sets `display: none` on `.quarto-badge` inside a `.nav-link`, so the sidebar and table of contents show the heading text alone.
 
 ::: {.callout-caution}
 A badge with an `href` inside a heading breaks that heading's table of contents link.

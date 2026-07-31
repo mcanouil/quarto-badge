@@ -103,7 +103,8 @@ badge-overrides:
 ```
 
 The first entry replaces the project-level `experimental` badge, which is styled `bg-info` everywhere else on this site.
-The second defines a badge that exists on this page only.
+It clears the class with `class: ""` because a Bootstrap background utility declares `!important` and would otherwise beat the inline colour.
+The second entry defines a badge that exists on this page only.
 
 | Source | Renders as |
 | --- | --- |
