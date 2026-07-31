@@ -1,0 +1,73 @@
+---
+title: "Badge"
+subtitle: "Small, styled labels for versions and status, written as a shortcode."
+description: "What the badge extension is for, how to install it, and the smallest configuration that renders a badge."
+authors:
+  - name: "Mickaël CANOUIL, _Ph.D._"
+    orcid: "0000-0002-3396-4549"
+    url: "https://mickael.canouil.fr"
+---
+
+Documentation carries a lot of small status signals: which release a feature landed in, what is still experimental, what is deprecated and kept only for compatibility.
+Written as prose they are easy to miss, and written as ad hoc HTML spans they drift apart the moment there is more than one page.
+
+`badge` turns them into one configured vocabulary.
+Each kind of badge is defined once, under `extensions.badge`, and then written as `{{{< badge key value >}}}` wherever the label belongs, including inside a heading.
+
+## Installation
+
+```bash
+quarto add {{< var extension.reference >}}
+```
+
+This will install the extension under the `_extensions` subdirectory.
+If you are using version control, you will want to check in this directory.
+
+Or install it from your editor with [Quarto Wizard](https://m.canouil.dev/quarto-wizard):
+
+::: {.btn-group role="group" aria-label="Quarto Wizard installer options"}
+
+[Visual Studio Code](vscode://mcanouil.quarto-wizard/install?repo={{< var extension.wizard-reference >}}){.btn .btn-outline-primary title="Install {{< var extension.reference >}} in Visual Studio Code using the Quarto Wizard extension."}
+[Positron](positron://mcanouil.quarto-wizard/install?repo={{< var extension.wizard-reference >}}){.btn .btn-outline-primary title="Install {{< var extension.reference >}} in Positron using the Quarto Wizard extension."}
+[VSCodium](vscodium://mcanouil.quarto-wizard/install?repo={{< var extension.wizard-reference >}}){.btn .btn-outline-primary title="Install {{< var extension.reference >}} in VSCodium using the Quarto Wizard extension."}
+
+:::
+
+## Quick start
+
+Define the badges once, in `_quarto.yml` for a whole project or in a document's front matter for a single page:
+
+```yaml
+extensions:
+  badge:
+    - key: stable
+      colour: springgreen
+    - key: experimental
+      class: bg-info
+```
+
+Then write the shortcode wherever the label belongs:
+
+```markdown
+Version {{{< badge stable 2.5.0 >}}}, beside a feature still marked {{{< badge experimental alpha >}}}.
+```
+
+Which renders as: Version {{< badge stable 2.5.0 >}}, beside a feature still marked {{< badge experimental alpha >}}.
+
+The first argument is the key, which selects the configuration, and the second is the value shown inside the badge.
+
+See the [Reference](reference.qmd) for every option, and the [Examples](examples.qmd) for each of them rendered.
+
+## Where it works
+
+HTML output formats only.
+The shortcode contributes raw HTML, so in every other format the badge is dropped and the surrounding text is left intact.
+
+Every user-supplied value is HTML-escaped before it is written to the document.
+
+## Links
+
+- [Reference](reference.qmd) for the full option list.
+- [Examples](examples.qmd) for rendered output.
+- [Changelog](changelog.qmd) for what each release changed.
+- [Source and issues](https://github.com/mcanouil/quarto-badge) on GitHub.

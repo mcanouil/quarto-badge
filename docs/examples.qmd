@@ -1,0 +1,117 @@
+---
+title: "Examples"
+subtitle: "Every option, rendered."
+description: "Each badge option shown as source alongside the badge this site renders from it."
+badge-overrides:
+  - key: experimental
+    colour: hotpink
+    class: ""
+  - key: doc-only
+    colour: teal
+    icon: stars
+---
+
+Every badge below is rendered by the extension as this page is built.
+
+The badges come from `extensions.badge` in this site's `_quarto.yml`:
+
+```yaml
+extensions:
+  badge:
+    - key: stable
+      colour: springgreen
+    - key: beta
+      colour: gold
+    - key: experimental
+      class: bg-info
+    - key: deprecated
+      class: bg-warning
+      href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
+    - key: release
+      colour: dodgerblue
+      icon: tag
+      href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
+      target: _blank
+      title: "Open release {{value}} in a new tab"
+    - key: note
+      colour: hotpink
+      title: "Notes for release {{value}}"
+```
+
+## Colours
+
+`colour` takes any CSS colour and is applied as an inline background.
+
+| Source | Renders as |
+| --- | --- |
+| `{{{< badge stable 2.5.0 >}}}` | {{< badge stable 2.5.0 >}} |
+| `{{{< badge beta 2.6.0-beta1 >}}}` | {{< badge beta 2.6.0-beta1 >}} |
+
+: The `stable` and `beta` keys, set with the named colours `springgreen` and `gold`. {.striped .hover tbl-colwidths="[60,40]"}
+
+## Classes
+
+`class` styles the badge from CSS instead, which is how the Bootstrap background helpers are used.
+
+| Source | Renders as |
+| --- | --- |
+| `{{{< badge deprecated 1.0.0 >}}}` | {{< badge deprecated 1.0.0 >}} |
+
+: The `deprecated` key, styled with `bg-warning`. {.striped .hover tbl-colwidths="[60,40]"}
+
+## Links
+
+`href` wraps the badge in an anchor, and `{{value}}` is replaced by the shortcode's second argument.
+The badge above links to `https://github.com/mcanouil/quarto-badge/releases/tag/1.0.0`.
+
+## Icons, tooltips, and link targets
+
+`icon`, `title`, and `target` combine on a single badge.
+
+| Source | Renders as |
+| --- | --- |
+| `{{{< badge release 2.5.0 >}}}` | {{< badge release 2.5.0 >}} |
+| `{{{< badge note 2.5.0 >}}}` | {{< badge note 2.5.0 >}} |
+
+: The `release` key adds a Bootstrap `tag` icon, a tooltip, and `target: _blank`; the `note` key carries a tooltip alone. Hover either one to read it. {.striped .hover tbl-colwidths="[60,40]"}
+
+## Badges in headings
+
+A badge renders inside a heading, which is where a version or status label usually belongs.
+
+### {{< badge stable 2.5.0 >}} A stable feature
+
+Written as `### {{{< badge stable 2.5.0 >}}} A stable feature`.
+
+::: {.callout-caution}
+A badge with an `href` breaks the table of contents link of the heading it sits in.
+The heading above uses `stable`, which has no link, for that reason.
+:::
+
+## Document-level overrides
+
+This page's front matter carries a `badge-overrides` block:
+
+```yaml
+badge-overrides:
+  - key: experimental
+    colour: hotpink
+    class: ""
+  - key: doc-only
+    colour: teal
+    icon: stars
+```
+
+The first entry replaces the project-level `experimental` badge, which is styled `bg-info` everywhere else on this site.
+The second defines a badge that exists on this page only.
+
+| Source | Renders as |
+| --- | --- |
+| `{{{< badge experimental alpha >}}}` | {{< badge experimental alpha >}} |
+| `{{{< badge doc-only preview >}}}` | {{< badge doc-only preview >}} |
+
+: An overridden badge and a badge defined by the override alone. {.striped .hover tbl-colwidths="[60,40]"}
+
+## Source
+
+The repository ships a short, standalone starting point you can copy: [`example.qmd`](https://github.com/mcanouil/quarto-badge/blob/main/example.qmd).
