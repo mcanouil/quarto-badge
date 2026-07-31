@@ -110,9 +110,6 @@ extensions:
         - text: "Q&A"
           href: "/discussions/categories/q-a"
           icon: question
-      # Quoted, like every other placeholder here: a bare %% starts a YAML
-      # directive, and this file is parsed as it stands when the extensions
-      # under _extensions/ are updated in place.
       sponsor: "mcanouil"
       # There is no navbar; the widget sits in the docked sidebar instead, so
       # there are no navbar tools to restyle.
