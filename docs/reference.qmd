@@ -1,0 +1,139 @@
+---
+title: "Reference"
+subtitle: "Every option the badge extension accepts."
+description: "The complete badge configuration: shortcode arguments, badge properties, document-level overrides, validation rules, and limitations."
+---
+
+## Shortcode
+
+```markdown
+{{{< badge key value >}}}
+```
+
+Both arguments are positional and both are required.
+
+| Argument | Type | Required | Description |
+| --- | --- | --- | --- |
+| `key` | string | Yes | Selects the badge configuration to use. Matches the `key` of one entry under `extensions.badge`. |
+| `value` | string | Yes | The text shown inside the badge, and the substitution for `{{value}}` in `href` and `title`. |
+
+: Arguments of the `badge` shortcode. {.striped .hover tbl-colwidths="[15,13,12,60]"}
+
+A shortcode called with no key, with a key that matches no entry, or in a document with no badge configuration at all renders as nothing and writes a warning.
+
+## Configuration
+
+Badges are defined under `extensions.badge`, in `_quarto.yml` for a whole project or in a document's front matter for a single page.
+The key holds an array: one entry per kind of badge.
+
+```yaml
+extensions:
+  badge:
+    - key: stable
+      colour: springgreen
+    - key: release
+      colour: dodgerblue
+      icon: tag
+      href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
+      target: _blank
+      title: "Open release {{value}} in a new tab"
+```
+
+### Options
+
+Every property applies to one entry of the `extensions.badge` array.
+
+| Option | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| `key` | string | Yes | | The identifier the shortcode's first argument matches. |
+| `colour` | string | No | | Background colour of the badge, applied as an inline `background-color` style. Aliased as `color`. |
+| `class` | string | No | | CSS class or classes added to the badge, such as the Bootstrap `bg-danger` and `bg-warning` helpers. |
+| `href` | string | No | | Link target for the badge. `{{value}}` is replaced by the shortcode's second argument. |
+| `target` | string | No | | Link target attribute, used only alongside `href`. One of `_self`, `_blank`, `_parent`, `_top`. |
+| `title` | string | No | | Tooltip shown on hover. `{{value}}` is replaced by the shortcode's second argument. |
+| `icon` | string | No | | [Bootstrap icon](https://icons.getbootstrap.com) name without the `bi-` prefix, drawn before the value. |
+
+: Badge configuration options. {.striped .hover tbl-colwidths="[13,10,10,10,57]"}
+
+`{{value}}` is substituted in `href` and in `title` only.
+A percent sign in the value is escaped before substitution, so it is inserted literally.
+
+::: {.callout-note}
+Set `colour` or `class`, not both.
+The Bootstrap background utilities, `bg-warning` and the rest, declare `background-color` with `!important`, so a `class` beats the inline style `colour` writes.
+An override that wants a colour in place of an inherited class has to clear the class with `class: ""`.
+:::
+
+### Document-level overrides
+
+`badge-overrides` redefines project-level badges for a single document.
+Entries are matched by `key`: a matching key replaces the whole entry, and an unmatched key is appended as a new badge.
+
+```yaml
+badge-overrides:
+  - key: experimental
+    colour: hotpink
+    class: ""
+  - key: doc-only
+    colour: teal
+    icon: stars
+```
+
+The overrides take the same options as `extensions.badge`.
+
+::: {.callout-note}
+A matching key replaces the entry rather than merging into it.
+An override that sets only `colour` drops the `class`, `href`, `icon`, and `title` of the badge it replaces.
+:::
+
+Overrides are read from the top-level `badge-overrides` first, and from `extensions.badge-overrides` only when the top-level key is absent.
+
+## Validation
+
+Invalid values are dropped rather than emitted, and the badge still renders without them.
+Each unknown key, invalid colour, and malformed link is warned about once per render.
+
+| Rule | What is accepted | On failure |
+| --- | --- | --- |
+| `colour` | CSS named colours, `transparent`, `currentcolor`, `inherit`, 3, 4, 6, or 8 digit hex, and the `rgb()`, `rgba()`, `hsl()`, `hsla()`, `hwb()`, `lab()`, `lch()`, `oklab()`, `oklch()`, and `color()` functional forms. | The colour is dropped and the badge renders unstyled. |
+| `href` | `https://`, `http://`, `mailto:`, `tel:`, `ftp://`, root-relative `/…`, fragment `#…`, query `?…`, and plain relative paths. Whitespace and control characters are rejected. | The anchor is dropped and the badge renders unlinked, keeping its colour, class, icon, and tooltip. Schemes outside the list, `javascript:` among them, fail this check. |
+| `target` | `_self`, `_blank`, `_parent`, `_top`. | The attribute is dropped and the link still renders. |
+| `key` (shortcode) | A key defined under `extensions.badge` or added by `badge-overrides`. | The shortcode renders as nothing. |
+
+: Validation rules and what happens when a value fails them. {.striped .hover tbl-colwidths="[13,57,30]"}
+
+A `target` of `_blank` also receives `rel="noopener noreferrer"`.
+
+::: {.callout-warning}
+The top-level `badge` key, used instead of `extensions.badge`, is still read but is deprecated and warns once per render.
+Move the configuration under `extensions`.
+:::
+
+## Output
+
+The shortcode emits one inline element:
+
+```html
+<span class="badge rounded-pill quarto-badge <class>" style="background-color: <colour>;" title="<title>">
+  <a href="<href>" class="quarto-badge-href" target="<target>">
+    <i class="bi bi-<icon>" aria-hidden="true"></i> <value>
+  </a>
+</span>
+```
+
+The anchor, the style, the title, and the icon are each present only when the matching option is set.
+Every user-supplied value is HTML-escaped, in text and in attributes alike.
+
+Styling hooks: `.quarto-badge` on the badge itself and `.quarto-badge-href` on the anchor, both alongside the Bootstrap `badge` and `rounded-pill` classes.
+
+## Limitations
+
+- HTML output formats only. Everywhere else the shortcode renders as an empty inline, and the surrounding text is untouched.
+- `icon` needs a format that ships [Bootstrap Icons](https://icons.getbootstrap.com), which Quarto's HTML formats do.
+- A badge in a heading is hidden wherever that heading's text is reused in navigation: the extension's stylesheet sets `display: none` on `.quarto-badge` inside a `.nav-link`, so the sidebar and table of contents show the heading text alone.
+- A heading containing a badge gets an automatic identifier built from the unexpanded shortcode, which reads as a long hexadecimal string. Give such a heading an explicit `{#id}` to keep its permalink readable.
+
+::: {.callout-caution}
+A badge with an `href` inside a heading breaks that heading's table of contents link.
+Use a badge without `href` in headings.
+:::
