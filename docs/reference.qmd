@@ -96,7 +96,7 @@ Each unknown key, invalid colour, and malformed link is warned about once per re
 | Rule | What is accepted | On failure |
 | --- | --- | --- |
 | `colour` | CSS named colours, `transparent`, `currentcolor`, `inherit`, 3, 4, 6, or 8 digit hex, and the `rgb()`, `rgba()`, `hsl()`, `hsla()`, `hwb()`, `lab()`, `lch()`, `oklab()`, `oklch()`, and `color()` functional forms. | The colour is dropped and the badge renders unstyled. |
-| `href` | `https://`, `http://`, `mailto:`, `tel:`, `ftp://`, root-relative `/…`, fragment `#…`, query `?…`, and plain relative paths. Whitespace and control characters are rejected. | The link is dropped and the badge renders as plain text. Schemes outside the list, `javascript:` among them, fail this check. |
+| `href` | `https://`, `http://`, `mailto:`, `tel:`, `ftp://`, root-relative `/…`, fragment `#…`, query `?…`, and plain relative paths. Whitespace and control characters are rejected. | The anchor is dropped and the badge renders unlinked, keeping its colour, class, icon, and tooltip. Schemes outside the list, `javascript:` among them, fail this check. |
 | `target` | `_self`, `_blank`, `_parent`, `_top`. | The attribute is dropped and the link still renders. |
 | `key` (shortcode) | A key defined under `extensions.badge` or added by `badge-overrides`. | The shortcode renders as nothing. |
 
@@ -130,8 +130,8 @@ Styling hooks: `.quarto-badge` on the badge itself and `.quarto-badge-href` on t
 
 - HTML output formats only. Everywhere else the shortcode renders as an empty inline, and the surrounding text is untouched.
 - `icon` needs a format that ships [Bootstrap Icons](https://icons.getbootstrap.com), which Quarto's HTML formats do.
-
 - A badge in a heading is hidden wherever that heading's text is reused in navigation: the extension's stylesheet sets `display: none` on `.quarto-badge` inside a `.nav-link`, so the sidebar and table of contents show the heading text alone.
+- A heading containing a badge gets an automatic identifier built from the unexpanded shortcode, which reads as a long hexadecimal string. Give such a heading an explicit `{#id}` to keep its permalink readable.
 
 ::: {.callout-caution}
 A badge with an `href` inside a heading breaks that heading's table of contents link.

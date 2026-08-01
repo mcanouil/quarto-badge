@@ -79,9 +79,12 @@ The badge above links to `https://github.com/mcanouil/quarto-badge/releases/tag/
 
 A badge renders inside a heading, which is where a version or status label usually belongs.
 
-### {{< badge stable 2.5.0 >}} A stable feature
+### {{< badge stable 2.5.0 >}} A stable feature {#a-stable-feature}
 
-Written as `### {{{< badge stable 2.5.0 >}}} A stable feature`.
+Written as `### {{{< badge stable 2.5.0 >}}} A stable feature {#a-stable-feature}`.
+
+The explicit identifier is worth setting.
+Quarto derives a heading's automatic identifier before it expands shortcodes, so a heading left to itself gets a long hexadecimal identifier standing for the badge.
 
 ::: {.callout-caution}
 A badge with an `href` breaks the table of contents link of the heading it sits in.
