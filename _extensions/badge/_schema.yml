@@ -1,11 +1,11 @@
 # Schema for the badge extension
 
-$schema: https://m.canouil.dev/quarto-wizard/assets/schema/v1/extension-schema.json
+$schema: https://m.canouil.dev/quarto-wizard/assets/schema/v2/extension-schema.json
 
 options:
   badge:
     type: array
-    min-items: 1
+    minItems: 1
     description: "Array of badge configuration objects."
     items:
       type: object
@@ -43,7 +43,7 @@ options:
           description: "Optional Bootstrap icon name (without the 'bi-' prefix) prepended before the badge value."
   badge-overrides:
     type: array
-    min-items: 1
+    minItems: 1
     description: "Document-level overrides for badge configurations defined at project level. Entries are matched by 'key'; matching keys are replaced, new keys are appended."
     items:
       type: object
