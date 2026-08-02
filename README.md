@@ -7,7 +7,7 @@ Define each kind of badge once under `extensions.badge`, then write `{{< badge k
 ## Installation
 
 ```bash
-quarto add mcanouil/quarto-badge@2.5.1
+quarto add mcanouil/quarto-badge@2.5.2
 ```
 
 This will install the extension under the `_extensions` subdirectory.
