@@ -7,11 +7,27 @@
 local EXTENSION_NAME = 'badge'
 
 --- Load modules
-local str = require(quarto.utils.resolve_path('_modules/string.lua'):gsub('%.lua$', ''))
-local meta_mod = require(quarto.utils.resolve_path('_modules/metadata.lua'):gsub('%.lua$', ''))
-local pdoc = require(quarto.utils.resolve_path('_modules/pandoc-helpers.lua'):gsub('%.lua$', ''))
-local log = require(quarto.utils.resolve_path('_modules/logging.lua'):gsub('%.lua$', ''))
-local colour_mod = require(quarto.utils.resolve_path('_modules/colour.lua'):gsub('%.lua$', ''))
+local str = require(quarto.utils.resolve_path('_vendor/quarto-lua-modules/string.lua'):gsub('%.lua$', ''))
+local meta_mod = require(quarto.utils.resolve_path('_vendor/quarto-lua-modules/metadata.lua'):gsub('%.lua$', ''))
+local pdoc = require(quarto.utils.resolve_path('_vendor/quarto-lua-modules/pandoc-helpers.lua'):gsub('%.lua$', ''))
+local log = require(quarto.utils.resolve_path('_vendor/quarto-lua-modules/logging.lua'):gsub('%.lua$', ''))
+local colour_mod = require(quarto.utils.resolve_path('_vendor/quarto-lua-modules/colour.lua'):gsub('%.lua$', ''))
+local schema = require(quarto.utils.resolve_path('_vendor/quarto-wizard/schema.lua'):gsub('%.lua$', ''))
+local check = require(quarto.utils.resolve_path('_vendor/quarto-lua-modules/schema-check.lua'):gsub('%.lua$', ''))
+
+--- The schema check, built once and reused by every shortcode call. It reads
+--- `_schema.yml` on the way in, checks the document configuration once, and
+--- checks each call against the entry that describes it.
+---
+--- The validator is injected rather than required by the check module, so the
+--- two vendored sources stay independent of where the other was placed.
+---
+--- The extension contributes a shortcode and no filter, so the check runs from
+--- the shortcode handler. There is nowhere else it could run.
+---
+--- A schema that cannot be read is reported by the module as an error and the
+--- render carries on: a configuration file must not stop a document.
+local checker = check.new(schema, EXTENSION_NAME)
 
 --- Flag to track if deprecation warning has been shown.
 --- @type boolean
@@ -281,11 +297,14 @@ end
 --- href, target, and title properties.
 ---
 --- @param args table Array of positional arguments (badge key and value)
---- @param _kwargs table Table of named keyword arguments (unused)
+--- @param kwargs table Table of named keyword arguments, read only by the schema check
 --- @param meta table Document metadata containing badge definitions
 --- @return pandoc.RawInline HTML badge element, or an empty inline for non-HTML formats and warning paths
 --- @usage {{< badge key value >}}
-local function badge(args, _kwargs, meta)
+local function badge(args, kwargs, meta)
+  checker:options(meta)
+  checker:call('badge', args, kwargs)
+
   if not quarto.doc.is_format('html') then
     return pandoc.RawInline('html', '')
   end
