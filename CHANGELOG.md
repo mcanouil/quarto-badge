@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Bug Fixes
+
+- fix: The `badge` shortcode no longer stops the render when it is called with no arguments. It reports the missing key and renders nothing. (#49)
+
 ## 2.6.0 (2026-09-07)
 
 ### New Features

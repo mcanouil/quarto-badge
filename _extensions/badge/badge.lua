@@ -315,9 +315,9 @@ local function badge(args, kwargs, meta)
   })
 
   --- @type string Requested badge key
-  local badge_key = str.stringify(args[1])
+  local badge_key = #args > 0 and str.stringify(args[1]) or ''
   --- @type string Badge value to display
-  local badge_value = str.stringify(args[2])
+  local badge_value = #args > 1 and str.stringify(args[2]) or ''
 
   if str.is_empty(badge_key) then
     log.log_warning(EXTENSION_NAME, 'Badge shortcode requires a key as the first argument.')
