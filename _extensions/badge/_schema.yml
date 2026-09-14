@@ -3,12 +3,13 @@
 $schema: https://m.canouil.dev/quarto-wizard/assets/schema/v2/extension-schema.json
 
 options:
-  badge:
+  badges:
     type: array
     minItems: 1
     description: "Array of badge configuration objects."
     items:
       type: object
+      additionalProperties: false
       properties:
         key:
           type: string
@@ -41,12 +42,13 @@ options:
         icon:
           type: string
           description: "Optional Bootstrap icon name (without the 'bi-' prefix) prepended before the badge value."
-  badge-overrides:
+  overrides:
     type: array
     minItems: 1
     description: "Document-level overrides for badge configurations defined at project level. Entries are matched by 'key'; matching keys are replaced, new keys are appended."
     items:
       type: object
+      additionalProperties: false
       properties:
         key:
           type: string

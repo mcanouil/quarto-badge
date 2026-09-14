@@ -12,7 +12,7 @@ Documentation carries a lot of small status signals: which release a feature lan
 Written as prose they are easy to miss, and written as ad hoc HTML spans they drift apart the moment there is more than one page.
 
 `badge` turns them into one configured vocabulary.
-Each kind of badge is defined once, under `extensions.badge`, and then written as `{{{< badge key value >}}}` wherever the label belongs, including inside a heading.
+Each kind of badge is defined once, under `extensions.badge.badges`, and then written as `{{{< badge key value >}}}` wherever the label belongs, including inside a heading.
 
 ## Installation
 
@@ -40,10 +40,11 @@ Define the badges once, in `_quarto.yml` for a whole project or in a document's 
 ```yaml
 extensions:
   badge:
-    - key: stable
-      colour: springgreen
-    - key: experimental
-      class: bg-info
+    badges:
+      - key: stable
+        colour: springgreen
+      - key: experimental
+        class: bg-info
 ```
 
 Then write the shortcode wherever the label belongs:

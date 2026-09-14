@@ -29,10 +29,6 @@ local check = require(quarto.utils.resolve_path('_vendor/quarto-lua-modules/sche
 --- render carries on: a configuration file must not stop a document.
 local checker = check.new(schema, EXTENSION_NAME)
 
---- Flag to track if deprecation warning has been shown.
---- @type boolean
-local deprecation_warning_shown = false
-
 --- Per-render cache of warned unknown badge keys.
 --- Prevents repeated warnings for the same key in one document.
 --- @type table<string, boolean>
@@ -101,30 +97,22 @@ local function is_valid_colour(value)
   return false
 end
 
---- Load base badge configurations from document metadata, preferring the
---- scoped `extensions.badge` table and falling back to the deprecated
---- top-level `badge` key.
+--- Load base badge configurations from document metadata.
+---
+--- An extension's options live at `extensions.<name>.<option>`, so the badges
+--- are read from `extensions.badge.badges`. The option is not named after its
+--- own extension, which would read as `extensions.badge.badge`.
 --- @param meta table Document metadata
 --- @return table|nil Array of base badge configurations
 local function load_base_badges(meta)
-  local from_extension = meta_mod.get_extension_config(meta, EXTENSION_NAME)
-  if from_extension then return from_extension end
-
-  local from_deprecated
-  from_deprecated, deprecation_warning_shown = meta_mod.check_deprecated_config(
-    meta,
-    EXTENSION_NAME,
-    nil,
-    deprecation_warning_shown
-  )
-  return from_deprecated
+  local scoped = meta_mod.get_extension_config(meta, EXTENSION_NAME)
+  return scoped and scoped['badges'] or nil
 end
 
 --- Merge document-level badge overrides into base configurations.
 --- Overrides are matched by `key`; existing fields are replaced and new keys
---- are appended. Honoured override sources, in order of precedence:
----   1. `badge-overrides` (top-level).
----   2. `extensions.badge-overrides`.
+--- are appended. They are read from `extensions.badge.overrides`, beside the
+--- badges they override.
 --- @param base table|nil Array of base badge configurations
 --- @param meta table Document metadata
 --- @return table Array of effective badge configurations
@@ -136,10 +124,8 @@ local function apply_overrides(base, meta)
     end
   end
 
-  local overrides = meta['badge-overrides']
-  if not overrides and meta.extensions then
-    overrides = meta.extensions['badge-overrides']
-  end
+  local scoped = meta_mod.get_extension_config(meta, EXTENSION_NAME)
+  local overrides = scoped and scoped['overrides']
   if not overrides then return result end
 
   for _, override in ipairs(overrides) do
@@ -330,7 +316,7 @@ local function badge(args, kwargs, meta)
   if pdoc.is_object_empty(badge_configs) then
     log.log_warning(
       EXTENSION_NAME,
-      'No badge configuration found. Define badges under "extensions.badge" in document or project metadata.'
+      'No badge configuration found. Define badges under "extensions.badge.badges" in document or project metadata.'
     )
     return pandoc.RawInline('html', '')
   end
@@ -341,7 +327,7 @@ local function badge(args, kwargs, meta)
       log.log_warning(
         EXTENSION_NAME,
         'No badge configuration matches key "' .. badge_key ..
-        '". Add an entry with this key under "extensions.badge".'
+        '". Add an entry with this key under "extensions.badge.badges".'
       )
       warned_unknown_keys[badge_key] = true
     end

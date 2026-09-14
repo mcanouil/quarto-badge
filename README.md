@@ -2,7 +2,7 @@
 
 `badge` is an extension for Quarto to provide a shortcode to display styled badges for software versions, feature status, or any other categorised information.
 
-Define each kind of badge once under `extensions.badge`, then write `{{< badge key value >}}` wherever the label belongs, including inside a heading.
+Define each kind of badge once under `extensions.badge.badges`, then write `{{< badge key value >}}` wherever the label belongs, including inside a heading.
 
 ## Installation
 

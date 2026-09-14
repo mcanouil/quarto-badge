@@ -2,40 +2,43 @@
 title: "Examples"
 subtitle: "Every option, rendered."
 description: "Each badge option shown as source alongside the badge this site renders from it."
-badge-overrides:
-  - key: experimental
-    colour: hotpink
-    class: ""
-  - key: doc-only
-    colour: teal
-    icon: stars
+extensions:
+  badge:
+    overrides:
+      - key: experimental
+        colour: hotpink
+        class: ""
+      - key: doc-only
+        colour: teal
+        icon: stars
 ---
 
 Every badge below is rendered by the extension as this page is built.
 
-The badges come from `extensions.badge` in this site's `_quarto.yml`:
+The badges come from `extensions.badge.badges` in this site's `_quarto.yml`:
 
 ```yaml
 extensions:
   badge:
-    - key: stable
-      colour: springgreen
-    - key: beta
-      colour: gold
-    - key: experimental
-      class: bg-info
-    - key: deprecated
-      class: bg-warning
-      href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
-    - key: release
-      colour: dodgerblue
-      icon: tag
-      href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
-      target: _blank
-      title: "Open release {{value}} in a new tab"
-    - key: note
-      colour: hotpink
-      title: "Notes for release {{value}}"
+    badges:
+      - key: stable
+        colour: springgreen
+      - key: beta
+        colour: gold
+      - key: experimental
+        class: bg-info
+      - key: deprecated
+        class: bg-warning
+        href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
+      - key: release
+        colour: dodgerblue
+        icon: tag
+        href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
+        target: _blank
+        title: "Open release {{value}} in a new tab"
+      - key: note
+        colour: hotpink
+        title: "Notes for release {{value}}"
 ```
 
 ## Colours
@@ -93,16 +96,18 @@ The heading above uses `stable`, which has no link, for that reason.
 
 ## Document-level overrides
 
-This page's front matter carries a `badge-overrides` block:
+This page's front matter carries an `extensions.badge.overrides` block:
 
 ```yaml
-badge-overrides:
-  - key: experimental
-    colour: hotpink
-    class: ""
-  - key: doc-only
-    colour: teal
-    icon: stars
+extensions:
+  badge:
+    overrides:
+      - key: experimental
+        colour: hotpink
+        class: ""
+      - key: doc-only
+        colour: teal
+        icon: stars
 ```
 
 The first entry replaces the project-level `experimental` badge, which is styled `bg-info` everywhere else on this site.
