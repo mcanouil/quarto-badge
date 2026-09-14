@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+### New Features
+
+- feat: Move the configuration to `extensions.badge.badges` and the overrides to `extensions.badge.overrides`. An extension keeps its options at `extensions.<name>.<option>`, and the old shapes are removed rather than deprecated, so a document that used them must be updated. (#54)
+
+### Bug Fixes
+
+- fix: Stop reporting every badge an author defines as an unrecognised key. The schema described an option named after the extension, which matched nothing a document writes. (#54)
+
 ### Documentation
 
 - docs: Serve the extension's social card as the Open Graph image, so a shared link shows the card rather than the first image on the page. (#51)
