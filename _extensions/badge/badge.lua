@@ -288,12 +288,13 @@ end
 --- @return pandoc.RawInline HTML badge element, or an empty inline for non-HTML formats and warning paths
 --- @usage {{< badge key value >}}
 local function badge(args, kwargs, meta)
-  checker:options(meta)
   checker:call('badge', args, kwargs)
 
   if not quarto.doc.is_format('html') then
     return pandoc.RawInline('html', '')
   end
+
+  checker:options(meta)
 
   quarto.doc.add_html_dependency({
     name = EXTENSION_NAME,
