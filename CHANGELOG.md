@@ -9,6 +9,7 @@
 ### Bug Fixes
 
 - fix: Stop reporting every badge an author defines as an unrecognised key. The schema described an option named after the extension, which matched nothing a document writes. (#54)
+- fix: Gate the options check on the html format so non-acting formats stay silent. (#54)
 
 ### Documentation
 
