@@ -14,7 +14,7 @@ Both arguments are positional and both are required.
 
 | Argument | Type | Required | Description |
 | --- | --- | --- | --- |
-| `key` | string | Yes | Selects the badge configuration to use. Matches the `key` of one entry under `extensions.badge`. |
+| `key` | string | Yes | Selects the badge configuration to use. Matches the `key` of one entry under `extensions.badge.badges`. |
 | `value` | string | Yes | The text shown inside the badge, and the substitution for `{{value}}` in `href` and `title`. |
 
 : Arguments of the `badge` shortcode. {.striped .hover tbl-colwidths="[15,13,12,60]"}
@@ -23,25 +23,26 @@ A shortcode called with no key, with a key that matches no entry, or in a docume
 
 ## Configuration
 
-Badges are defined under `extensions.badge`, in `_quarto.yml` for a whole project or in a document's front matter for a single page.
+Badges are defined under `extensions.badge.badges`, in `_quarto.yml` for a whole project or in a document's front matter for a single page.
 The key holds an array: one entry per kind of badge.
 
 ```yaml
 extensions:
   badge:
-    - key: stable
-      colour: springgreen
-    - key: release
-      colour: dodgerblue
-      icon: tag
-      href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
-      target: _blank
-      title: "Open release {{value}} in a new tab"
+    badges:
+      - key: stable
+        colour: springgreen
+      - key: release
+        colour: dodgerblue
+        icon: tag
+        href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
+        target: _blank
+        title: "Open release {{value}} in a new tab"
 ```
 
 ### Options
 
-Every property applies to one entry of the `extensions.badge` array.
+Every property applies to one entry of the `extensions.badge.badges` array.
 
 | Option | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -66,27 +67,29 @@ An override that wants a colour in place of an inherited class has to clear the 
 
 ### Document-level overrides
 
-`badge-overrides` redefines project-level badges for a single document.
+`extensions.badge.overrides` redefines project-level badges for a single document.
 Entries are matched by `key`: a matching key replaces the whole entry, and an unmatched key is appended as a new badge.
 
 ```yaml
-badge-overrides:
-  - key: experimental
-    colour: hotpink
-    class: ""
-  - key: doc-only
-    colour: teal
-    icon: stars
+extensions:
+  badge:
+    overrides:
+      - key: experimental
+        colour: hotpink
+        class: ""
+      - key: doc-only
+        colour: teal
+        icon: stars
 ```
 
-The overrides take the same options as `extensions.badge`.
+The overrides take the same options as `extensions.badge.badges`.
 
 ::: {.callout-note}
 A matching key replaces the entry rather than merging into it.
 An override that sets only `colour` drops the `class`, `href`, `icon`, and `title` of the badge it replaces.
 :::
 
-Overrides are read from the top-level `badge-overrides` first, and from `extensions.badge-overrides` only when the top-level key is absent.
+Overrides are read from `extensions.badge.overrides`.
 
 ## Validation
 
@@ -98,16 +101,11 @@ Each unknown key, invalid colour, and malformed link is warned about once per re
 | `colour` | CSS named colours, `transparent`, `currentcolor`, `inherit`, 3, 4, 6, or 8 digit hex, and the `rgb()`, `rgba()`, `hsl()`, `hsla()`, `hwb()`, `lab()`, `lch()`, `oklab()`, `oklch()`, and `color()` functional forms. | The colour is dropped and the badge renders unstyled. |
 | `href` | `https://`, `http://`, `mailto:`, `tel:`, `ftp://`, root-relative `/…`, fragment `#…`, query `?…`, and plain relative paths. Whitespace and control characters are rejected. | The anchor is dropped and the badge renders unlinked, keeping its colour, class, icon, and tooltip. Schemes outside the list, `javascript:` among them, fail this check. |
 | `target` | `_self`, `_blank`, `_parent`, `_top`. | The attribute is dropped and the link still renders. |
-| `key` (shortcode) | A key defined under `extensions.badge` or added by `badge-overrides`. | The shortcode renders as nothing. |
+| `key` (shortcode) | A key defined under `extensions.badge.badges` or added by `extensions.badge.overrides`. | The shortcode renders as nothing. |
 
 : Validation rules and what happens when a value fails them. {.striped .hover tbl-colwidths="[13,57,30]"}
 
 A `target` of `_blank` also receives `rel="noopener noreferrer"`.
-
-::: {.callout-warning}
-The top-level `badge` key, used instead of `extensions.badge`, is still read but is deprecated and warns once per render.
-Move the configuration under `extensions`.
-:::
 
 ## Output
 

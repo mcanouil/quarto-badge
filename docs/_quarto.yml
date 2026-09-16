@@ -130,21 +130,22 @@ extensions:
   # exercised by at least one key here, so the site demonstrates what it
   # documents rather than describing it a second time.
   badge:
-    - key: stable
-      colour: springgreen
-    - key: beta
-      colour: gold
-    - key: experimental
-      class: bg-info
-    - key: deprecated
-      class: bg-warning
-      href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
-    - key: release
-      colour: dodgerblue
-      icon: tag
-      href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
-      target: _blank
-      title: "Open release {{value}} in a new tab"
-    - key: note
-      colour: hotpink
-      title: "Notes for release {{value}}"
+    badges:
+      - key: stable
+        colour: springgreen
+      - key: beta
+        colour: gold
+      - key: experimental
+        class: bg-info
+      - key: deprecated
+        class: bg-warning
+        href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
+      - key: release
+        colour: dodgerblue
+        icon: tag
+        href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
+        target: _blank
+        title: "Open release {{value}} in a new tab"
+      - key: note
+        colour: hotpink
+        title: "Notes for release {{value}}"

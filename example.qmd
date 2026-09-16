@@ -11,19 +11,20 @@ format:
     code-tools: true
 extensions:
   badge:
-    - key: stable
-      colour: springgreen
-    - key: experimental
-      class: bg-info
-    - key: release
-      colour: dodgerblue
-      icon: tag
-      href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
-      target: _blank
-      title: "Open release {{value}} in a new tab"
+    badges:
+      - key: stable
+        colour: springgreen
+      - key: experimental
+        class: bg-info
+      - key: release
+        colour: dodgerblue
+        icon: tag
+        href: https://github.com/mcanouil/quarto-badge/releases/tag/{{value}}
+        target: _blank
+        title: "Open release {{value}} in a new tab"
 ---
 
-Define each kind of badge once under `extensions.badge`, then write `{{{< badge key value >}}}` wherever the label belongs.
+Define each kind of badge once under `extensions.badge.badges`, then write `{{{< badge key value >}}}` wherever the label belongs.
 
 Version {{< badge stable 2.5.0 >}} marks what has shipped, {{< badge experimental alpha >}} marks what is not settled yet, and {{< badge release 2.5.0 >}} links to the release it names.
 
