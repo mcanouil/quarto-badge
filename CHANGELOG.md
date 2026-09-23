@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 3.0.0 (2026-09-23)
+
 ### New Features
 
 - feat: Move the configuration to `extensions.badge.badges` and the overrides to `extensions.badge.overrides`. An extension keeps its options at `extensions.<name>.<option>`, and the old shapes are removed rather than deprecated, so a document that used them must be updated. (#54)
