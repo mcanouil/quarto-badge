@@ -6,10 +6,6 @@
 --- Extension name constant
 local EXTENSION_NAME = 'badge'
 
---- Class added when a badge has no `class` and no valid `colour`.
---- `badge.css` gives it the page colours in reverse.
-local DEFAULT_CLASS = 'quarto-badge-default'
-
 --- Load modules
 local str = require(quarto.utils.resolve_path('_vendor/quarto-lua-modules/string.lua'):gsub('%.lua$', ''))
 local meta_mod = require(quarto.utils.resolve_path('_vendor/quarto-lua-modules/metadata.lua'):gsub('%.lua$', ''))
@@ -264,10 +260,12 @@ local function build_badge_html(badge_config, badge_value)
     end
   end
 
-  -- Bootstrap gives `.badge` white text and no background.
-  -- Without a class or a colour, the text is not readable on a light page.
+  -- Bootstrap gives `.badge` white text and no background, so a badge with
+  -- no class and no colour gets the page colours in reverse from `badge.css`.
+  -- The `text-bg-*` classes are not used, because some themes compile them
+  -- with white text on a light grey.
   if css_class == '' and style_attr == '' then
-    css_class = DEFAULT_CLASS
+    css_class = 'quarto-badge-default'
   end
 
   -- Optional title tooltip.
