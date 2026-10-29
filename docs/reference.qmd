@@ -48,7 +48,7 @@ Every property applies to one entry of the `extensions.badge.badges` array.
 | --- | --- | --- | --- | --- |
 | `key` | string | Yes | | The identifier the shortcode's first argument matches. |
 | `colour` | string | No | | Background colour of the badge, applied as an inline `background-color` style. Aliased as `color`. |
-| `class` | string | No | `quarto-badge-default` | CSS class or classes added to the badge, such as the Bootstrap `bg-danger` and `bg-warning` helpers. The default applies only when `colour` is also not set. |
+| `class` | string | No | `quarto-badge-default` | CSS class or classes added to the badge, such as the Bootstrap `bg-danger` and `bg-warning` helpers. The default applies only when no valid `colour` is set. |
 | `href` | string | No | | Link target for the badge. `{{value}}` is replaced by the shortcode's second argument. |
 | `target` | string | No | | Link target attribute, used only alongside `href`. One of `_self`, `_blank`, `_parent`, `_top`. |
 | `title` | string | No | | Tooltip shown on hover. `{{value}}` is replaced by the shortcode's second argument. |
@@ -68,6 +68,7 @@ An override that wants a colour in place of an inherited class has to clear the 
 A badge with no `class` and no valid `colour` gets the `quarto-badge-default` class.
 This class uses the body colours of the page in reverse: the text colour becomes the background, and the background colour becomes the text.
 The badge then has the same contrast as the body text, in the light and the dark colour scheme.
+Any `class` turns off this default, so a class that sets no background, such as `fw-bold`, needs a `colour` or a `bg-*` class too.
 
 ### Document-level overrides
 
