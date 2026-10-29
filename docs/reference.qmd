@@ -126,7 +126,11 @@ The shortcode emits one inline element:
 The anchor, the style, the title, and the icon are each present only when the matching option is set.
 Every user-supplied value is HTML-escaped, in text and in attributes alike.
 
-Styling hooks: `.quarto-badge` on the badge itself, `.quarto-badge-default` on a badge with no `class` and no `colour`, and `.quarto-badge-href` on the anchor, both alongside the Bootstrap `badge` and `rounded-pill` classes.
+Styling hooks:
+
+- `.quarto-badge` is on the badge, with the Bootstrap `badge` and `rounded-pill` classes.
+- `.quarto-badge-default` is also on the badge when it has no `class` and no valid `colour`.
+- `.quarto-badge-href` is on the anchor.
 
 ## Limitations
 
