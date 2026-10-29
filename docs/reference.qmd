@@ -68,7 +68,10 @@ An override that wants a colour in place of an inherited class has to clear the 
 A badge with no `class` and no valid `colour` gets the `quarto-badge-default` class.
 This class uses the body colours of the page in reverse: the text colour becomes the background, and the background colour becomes the text.
 The badge then has the same contrast as the body text, in the light and the dark colour scheme.
-Any `class` turns off this default, so a class that sets no background, such as `fw-bold`, needs a `colour` or a `bg-*` class too.
+A non-empty `class` turns off this default, so a class that sets no background, such as `fw-bold`, needs a `colour` or a `bg-*` class too.
+An empty `class: ""` counts as no class, so a badge with `class: ""` and no `colour` gets the default.
+To change the default look from your own stylesheet, target `.quarto-badge-default`.
+A rule on `.quarto-badge` alone does not override it, because the extension stylesheet loads after the theme.
 
 ### Document-level overrides
 
