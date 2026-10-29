@@ -15,3 +15,8 @@
 a.nav-link.quarto-badge-href {
   display: none;
 }
+
+.quarto-badge-default {
+  color: var(--bs-body-bg);
+  background-color: var(--bs-body-color);
+}

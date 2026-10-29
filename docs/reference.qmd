@@ -48,7 +48,7 @@ Every property applies to one entry of the `extensions.badge.badges` array.
 | --- | --- | --- | --- | --- |
 | `key` | string | Yes | | The identifier the shortcode's first argument matches. |
 | `colour` | string | No | | Background colour of the badge, applied as an inline `background-color` style. Aliased as `color`. |
-| `class` | string | No | | CSS class or classes added to the badge, such as the Bootstrap `bg-danger` and `bg-warning` helpers. |
+| `class` | string | No | `quarto-badge-default` | CSS class or classes added to the badge, such as the Bootstrap `bg-danger` and `bg-warning` helpers. The default applies only when `colour` is also not set. |
 | `href` | string | No | | Link target for the badge. `{{value}}` is replaced by the shortcode's second argument. |
 | `target` | string | No | | Link target attribute, used only alongside `href`. One of `_self`, `_blank`, `_parent`, `_top`. |
 | `title` | string | No | | Tooltip shown on hover. `{{value}}` is replaced by the shortcode's second argument. |
@@ -64,6 +64,10 @@ Set `colour` or `class`, not both.
 The Bootstrap background utilities, `bg-warning` and the rest, declare `background-color` with `!important`, so a `class` beats the inline style `colour` writes.
 An override that wants a colour in place of an inherited class has to clear the class with `class: ""`.
 :::
+
+A badge with no `class` and no valid `colour` gets the `quarto-badge-default` class.
+This class uses the body colours of the page in reverse: the text colour becomes the background, and the background colour becomes the text.
+The badge then has the same contrast as the body text, in the light and the dark colour scheme.
 
 ### Document-level overrides
 
@@ -98,7 +102,7 @@ Each unknown key, invalid colour, and malformed link is warned about once per re
 
 | Rule | What is accepted | On failure |
 | --- | --- | --- |
-| `colour` | CSS named colours, `transparent`, `currentcolor`, `inherit`, 3, 4, 6, or 8 digit hex, and the `rgb()`, `rgba()`, `hsl()`, `hsla()`, `hwb()`, `lab()`, `lch()`, `oklab()`, `oklch()`, and `color()` functional forms. | The colour is dropped and the badge renders unstyled. |
+| `colour` | CSS named colours, `transparent`, `currentcolor`, `inherit`, 3, 4, 6, or 8 digit hex, and the `rgb()`, `rgba()`, `hsl()`, `hsla()`, `hwb()`, `lab()`, `lch()`, `oklab()`, `oklch()`, and `color()` functional forms. | The colour is dropped and the badge gets the default style, unless `class` is set. |
 | `href` | `https://`, `http://`, `mailto:`, `tel:`, `ftp://`, root-relative `/…`, fragment `#…`, query `?…`, and plain relative paths. Whitespace and control characters are rejected. | The anchor is dropped and the badge renders unlinked, keeping its colour, class, icon, and tooltip. Schemes outside the list, `javascript:` among them, fail this check. |
 | `target` | `_self`, `_blank`, `_parent`, `_top`. | The attribute is dropped and the link still renders. |
 | `key` (shortcode) | A key defined under `extensions.badge.badges` or added by `extensions.badge.overrides`. | The shortcode renders as nothing. |
@@ -122,7 +126,7 @@ The shortcode emits one inline element:
 The anchor, the style, the title, and the icon are each present only when the matching option is set.
 Every user-supplied value is HTML-escaped, in text and in attributes alike.
 
-Styling hooks: `.quarto-badge` on the badge itself and `.quarto-badge-href` on the anchor, both alongside the Bootstrap `badge` and `rounded-pill` classes.
+Styling hooks: `.quarto-badge` on the badge itself, `.quarto-badge-default` on a badge with no `class` and no `colour`, and `.quarto-badge-href` on the anchor, both alongside the Bootstrap `badge` and `rounded-pill` classes.
 
 ## Limitations
 
