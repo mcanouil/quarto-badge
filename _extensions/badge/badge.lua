@@ -260,6 +260,14 @@ local function build_badge_html(badge_config, badge_value)
     end
   end
 
+  -- Bootstrap gives `.badge` white text and no background, so a badge with
+  -- no class and no colour gets the page colours in reverse from `badge.css`.
+  -- The `text-bg-*` classes are not used, because some themes compile them
+  -- with white text on a light grey.
+  if css_class == '' and style_attr == '' then
+    css_class = 'quarto-badge-default'
+  end
+
   -- Optional title tooltip.
   local title_attr = ''
   if not str.is_empty(badge_config['title']) then
