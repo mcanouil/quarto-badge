@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 3.0.1 (2026-11-17)
+
 ### Bug Fixes
 
 - fix: Give a badge with no `class` and no `colour` a readable default. It takes the page's body colours in reverse, so it is as readable as the body text in light and dark modes. (#57)
