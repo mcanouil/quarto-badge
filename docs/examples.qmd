@@ -47,8 +47,8 @@ extensions:
 
 | Source | Renders as |
 | --- | --- |
-| `{{{< badge stable 2.5.0 >}}}` | {{< badge stable 2.5.0 >}} |
-| `{{{< badge beta 2.6.0-beta1 >}}}` | {{< badge beta 2.6.0-beta1 >}} |
+| `{{{< badge stable "2.5.0" >}}}` | {{< badge stable "2.5.0" >}} |
+| `{{{< badge beta "2.6.0-beta1" >}}}` | {{< badge beta "2.6.0-beta1" >}} |
 
 : The `stable` and `beta` keys, set with the named colours `springgreen` and `gold`. {.striped .hover tbl-colwidths="[60,40]"}
 
@@ -58,7 +58,7 @@ extensions:
 
 | Source | Renders as |
 | --- | --- |
-| `{{{< badge deprecated 1.0.0 >}}}` | {{< badge deprecated 1.0.0 >}} |
+| `{{{< badge deprecated "1.0.0" >}}}` | {{< badge deprecated "1.0.0" >}} |
 
 : The `deprecated` key, styled with `bg-warning`. {.striped .hover tbl-colwidths="[60,40]"}
 
@@ -73,8 +73,8 @@ The badge above links to `https://github.com/mcanouil/quarto-badge/releases/tag/
 
 | Source | Renders as |
 | --- | --- |
-| `{{{< badge release 2.5.0 >}}}` | {{< badge release 2.5.0 >}} |
-| `{{{< badge note 2.5.0 >}}}` | {{< badge note 2.5.0 >}} |
+| `{{{< badge release "2.5.0" >}}}` | {{< badge release "2.5.0" >}} |
+| `{{{< badge note "2.5.0" >}}}` | {{< badge note "2.5.0" >}} |
 
 : The `release` key adds a Bootstrap `tag` icon, a tooltip, and `target: _blank`; the `note` key carries a tooltip alone. Hover either one to read it. {.striped .hover tbl-colwidths="[60,40]"}
 
@@ -82,9 +82,9 @@ The badge above links to `https://github.com/mcanouil/quarto-badge/releases/tag/
 
 A badge renders inside a heading, which is where a version or status label usually belongs.
 
-### {{< badge stable 2.5.0 >}} A stable feature {#a-stable-feature}
+### {{< badge stable "2.5.0" >}} A stable feature {#a-stable-feature}
 
-Written as `### {{{< badge stable 2.5.0 >}}} A stable feature {#a-stable-feature}`.
+Written as `### {{{< badge stable "2.5.0" >}}} A stable feature {#a-stable-feature}`.
 
 The explicit identifier is worth setting.
 Quarto derives a heading's automatic identifier before it expands shortcodes, so a heading left to itself gets a long hexadecimal identifier standing for the badge.

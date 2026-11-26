@@ -50,10 +50,10 @@ extensions:
 Then write the shortcode wherever the label belongs:
 
 ```markdown
-Version {{{< badge stable 2.5.0 >}}}, beside a feature still marked {{{< badge experimental alpha >}}}.
+Version {{{< badge stable "2.5.0" >}}}, beside a feature still marked {{{< badge experimental alpha >}}}.
 ```
 
-Which renders as: Version {{< badge stable 2.5.0 >}}, beside a feature still marked {{< badge experimental alpha >}}.
+Which renders as: Version {{< badge stable "2.5.0" >}}, beside a feature still marked {{< badge experimental alpha >}}.
 
 The first argument is the key, which selects the configuration, and the second is the value shown inside the badge.
 
