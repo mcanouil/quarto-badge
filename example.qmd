@@ -26,9 +26,9 @@ extensions:
 
 Define each kind of badge once under `extensions.badge.badges`, then write `{{{< badge key value >}}}` wherever the label belongs.
 
-Version {{< badge stable 2.5.0 >}} marks what has shipped, {{< badge experimental alpha >}} marks what is not settled yet, and {{< badge release 2.5.0 >}} links to the release it names.
+Version {{< badge stable "2.5.0" >}} marks what has shipped, {{< badge experimental alpha >}} marks what is not settled yet, and {{< badge release "2.5.0" >}} links to the release it names.
 
-## {{< badge stable 2.5.0 >}} Badges in headings
+## {{< badge stable "2.5.0" >}} Badges in headings
 
 A badge renders inside a heading too, which is where a version or status label usually belongs.
 
